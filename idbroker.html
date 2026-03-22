@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>A-IAM</title>
+</head>
+<body>
+    <header class="project-page">
+        <div class="hero-section">
+            <div class="nav">
+                <p>A-IAM</p>
+                <nav>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="/topics">Topics</a></li>
+                        <li><a href="/topics">Projects</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="banner">
+                <img src="./assets/hero-image.jpg" alt="A-IAM Main Graphic">
+            </div>
+            <div class="tagline">
+                <h1>Identity Broker</h1>
+            </div>
+    </header>
+    <main>
+        <section id="about">
+            <div class="panel panel-30-70">
+                <div class="left">
+                    <h2>About</h2>
+                    <div class="panel-image">
+                        <img src="./assets/ids_2.jpg" alt="Identity Broker" />
+                    </div>
+                </div>
+                <div class="right content">
+                    <p>
+                        The <strong>Identity Broker</strong> project is a custom-built authentication service designed to centralise and manage authentication for multiple applications. Instead of each application implementing its own login logic, the broker acts as a secure intermediary between client applications and identity providers. It manages authentication flows, session handling, and token validation, providing a consistent and secure method for users to sign in across different services.
+                    </p>
+                    <p>
+                        The system was designed with flexibility in mind, supporting modern authentication patterns used by both web and mobile applications. Particular attention was given to handling redirect-based login flows, secure cookie management, and token validation to ensure sessions remain protected while maintaining a smooth user experience. By separating authentication from the application layer, the project demonstrates how identity services can be modularised, making future integrations easier and improving overall security architecture.
+                    </p>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="auth-flow">
+            <div class="panel panel-30-70">
+                <div class="left">
+                    <h2>Authentication Flow</h2>
+                    <div class="panel-image">
+                        <img src="./assets/auth-flow.png" alt="OAuth Flow Diagram" />
+                    </div>
+                </div>
+                <div class="right content">
+                    <p>
+                    This project implements an OAuth-based authentication flow where the Identity Broker
+                    acts as an intermediary between the client application and an external identity
+                    provider. The broker manages the redirection process, exchanges the authorization
+                    code for tokens, retrieves user information, and then issues its own JSON Web Token
+                    (JWT). This allows applications to rely on a consistent authentication mechanism
+                    without needing to integrate directly with individual identity providers.
+                    </p>
+
+                    <ol>
+                    <li>
+                        The client application initiates authentication by sending a request to
+                        <code>/auth/{provider}/login</code> on the Identity Broker.
+                    </li>
+                    <li>
+                        The broker redirects the user to the selected identity provider's login page
+                        where the user enters their credentials and authorises the application.
+                    </li>
+                    <li>
+                        After successful authentication, the provider redirects the user back to
+                        <code>/auth/{provider}/callback</code> on the broker along with an
+                        authorization code.
+                    </li>
+                    <li>
+                        The broker exchanges the authorization code,
+                        retrieves the user's details using and then
+                        generates and returns a JWT token pair which the client application can use for
+                        authenticated requests.
+                    </li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <section id="challenge">
+            <div class="panel panel-30-70">
+                <div class="left">
+                    <h2>The Challenge</h2>
+                    <div class="panel-image">
+                        <img src="./assets/challenge.jpg" alt="Challenge" />
+                    </div>
+                </div>
+                <div class="right content">
+                    <p>
+                        The challenge I ran into is <strong>handling mobile and web authentication flows.</strong>
+                    </p>
+                    <p>
+                        I built both a web based front end and an Android app to demonstrate the client interaction with the
+                        identity broker. The challenge is that the client behaves in different ways depending on whether it is 
+                        through the browser or the Android app.
+                    </p>
+                    <h3>Mobile App Behaviour</h3>
+                    <p>
+                        I have built the Android app using the Flutter framework. This utiilises the FlutterWebAuth2 plugin 
+                        which makes the call to the login endpoint in the FastAPI backend.
+                    </p>
+                    <p>
+                        The FlutterWebAuth2 plugin cannot obtain the JWT pair from response if it is sent in the session cookie.
+                        This therefore requires a different solution where I create my own authorization code and send it back to the
+                        client in the query parameters of the response. The Android app uses a custom scheme to receive redirects so 
+                        the back end needs to use that URL to redirect back to the Android app.
+                    </p>
+                    <p>
+                        The Android app now needs to exchange the authorization code for a JWT token pair which it receives from the 
+                        back end as a JSON payload. Then the Android app can store the token pair.
+                    </p>
+                    <h3>Browser Behaviour</h3>
+                    <p>
+                        The React front end app which runs from within the browser stores the JWT tokens inside a session cookie. 
+                        This requires the session cookie to be set that contains the back end issued JWT tokens (access token and refresh).
+                    </p>
+                    <p>
+                        The browser extracts the tokens from the cookie and calls the backend endpoints to refresh or issues new tokens.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="mobile-auth-flow">
+            <div class="panel panel-30-70">
+                <div class="left">
+                    <h2>Mobile Device Authentication Flow</h2>
+                    <div class="panel-image">
+                        <img src="./assets/id-broker-mobile-device-flow.png" alt="Challenge" />
+                    </div>
+                </div>
+                <div class="right content">
+                    <ol>
+                        <li>
+                            The Android App opens the logon endpoint, passing the redirect URI which is the custom URI scheme the app 
+                            uses for callback. The FlutterWebAuth2 plugin redirects the user to an embedded browser which makes the call 
+                            the the backend logon endpoint.
+                        </li>
+                        <li>
+                            The logon endpoint creates a state and stores it in the cookie, if the provider supports state.
+                        </li>
+                        <li>
+                            The logon endpoint will determine which IDP is requested and redirect to the IDP's authorisation endpoint.
+                        </li>
+                        <li>
+                            The User interacts with the browser session on the device to sign into their chosen IDP. And the IDP redirects
+                            to the back end token exchange endpoint with the authorization code.
+                        </li>
+                        <li>
+                            The authorization code is sent from the token exchange endpoint to the IDP for exchange with a token.
+                        </li>
+                        <li>
+                            The token is processed by the back end. At this stage the state is checked to be consistent with the state 
+                            sent if it was supported by the IDP. If there is a mismatch the backend will return a HTTP 401 status error.
+                        </li>
+                        <li>
+                            The back end will make a request to the IDPs endpoint for obtaining the user profile data. This is the used to 
+                            validate the user and will then either retrieve the existing user or create a new user in the database.
+                        </li>
+                        <li>
+                            The backend will now generate an authentication code which is  a v4 UUID and store it in the database. Then it is 
+                            sent back in the response as a query parameter. 
+                        </li>
+                        <li>The App will read the authentication code and send it to the backend token exchange endpoint. <code>/auth/exchangecodeforjwt</code> </li>
+                        <li>The back end retrieves the auth code from the database, checks that it hasn't expired and generates a token pair to 
+                            send back as a JSON payload to the mobile app.
+                        </li>
+                        <li>
+                            The app stores the token pair in secure storage.
+                        </li>
+                        <li>
+                            The app subsequently makes calls to the <code>auth/session</code> and <code>auth/refresh</code> endpoints. Tokens are 
+                            reissued by the refresh endpoint and sent back to the mobile client as a JSON payload.
+                        </li>
+                        <li>
+                            The Android app updates the tokens.
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+
+        </section>
+    </main>
+    
+</body>
+</html>
