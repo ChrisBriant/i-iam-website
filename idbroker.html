@@ -47,6 +47,18 @@
             </div>
         </section>
 
+        <section id="try-it">
+            <div class="panel panel-30-70 action-panel">
+                <div class="left">
+                    <img src="/assets/try-it-2.png" alt="Try It Glowing Text">
+                </div>
+                <div class="right">
+
+                </div>
+            </div>
+
+        </section>
+
         <section id="auth-flow">
             <div class="panel panel-30-70">
                 <div class="left">
@@ -191,8 +203,185 @@
                     </ol>
                 </div>
             </div>
+        </section>
 
+        <section id="browser-authentication-flow">
+            <div class="panel panel-30-70">
+                <div class="left">
+                    <h2>Browser Authentication Flow</h2>
+                    <div class="panel-image">
+                        <img src="./assets/id-broker-web-based-auth-flow.png" alt="Browser Authentication Flow Diagram" />
+                    </div>
+                </div>
+                <div class="right content">
+                    <p>The web based auth flow is a lot more simplistic as the tokens are stored in the session cookie and the app only needs to 
+                        obtain the session from the backend.
+                    </p>
+                    <ol>
+                        <li>The browser opens the logon endpoint for the selected IDP.</li>
+                        <li>The state is stored within the cookie if state is supported by the IDP.</li>
+                        <li>The backend calls the IDP authentication endpoint.</li>
+                        <li>The user interacts with their chosen IDP sign-in and consent page.</li>
+                        <li>The IDP redirects to the backend token exchange endpoint which requests the token from the IDP.</li>
+                        <li>The IDP returns an access token to the backend.</li>
+                        <li>The backend checks the state if supported.</li>
+                        <li>The backend requests the use profile data from the IDP.</li>
+                        <li>The token is validated based on the response and the user data is stored or retrieved from the database</li>
+                        <li>The backend retrieves or creates the user in the database and sets the profile data which is encoded in the session cookie.
+                            The session cookie is set in the browser.
+                        </li>
+                        <li>The client requests the session and tries the refresh endpoint if the access token has expired.</li>
+                    </ol>
+                </div>
+            </div>    
+        </section>
 
+        <section id="project-structure">
+            <div class="panel panel-40-60">
+                <div class="left">
+                    <h2>Project Structure</h2>
+                    <div class="preformatted-text">
+                         <pre>
+.
+├── main.py
+│
+├── auth
+│   ├── routes.py
+│   └── token.py
+│
+├── config
+│
+├── data
+│   ├── db.py
+│   ├── db_actions.py
+│   ├── db_setup.py
+│   ├── models.py
+│   └── schemas.py
+│
+├── providers
+│   ├── auth0_provider.py
+│   ├── base_provider.py
+│   ├── discord_provider.py
+│   ├── github_provider.py
+│   ├── google_provider.py
+│   ├── linkedin_provider.py
+│   ├── provider_registry.py
+│   └── spotify_provider.py
+|   |__ providers.json
+│
+├── static
+│   └── idp
+│       ├── auth0-icon-logo.svg
+│       ├── Discord-Symbol-Blurple.png
+│       ├── g-logo.png
+│       ├── GitHub_Invertocat_Black_Clearspace.png
+│       ├── Google__G__logo.svg
+│       ├── LI-In-Bug.png
+│       └── Primary_Logo_Green_RGB.svg
+│
+└── utils
+    └── app_utils.py
+                         </pre>   
+                    </div>
+                </div>
+                <div class="right">
+                    <h3>Main</h3>
+                    <p>main.py sets up the environment and directs to the auth routes where are where the endpoints are defined.</p>
+                    <h3>Auth</h3>
+                    <p>The auth folder contains route.py which holds the routes for the endpoint URLs. 
+                        This defines the URL paths that are processed by the RestAPI.</p>
+                    <p>
+                        token.py contains functions which are for generating and verifying the JWT tokens that are issued by the backend.
+                    </p>
+                    <h3>Data</h3>
+                    <p>
+                        This contains files which manage the database.
+                    </p>
+                    <p>models.py defines the models (tables) for the database. There is a table to users, authcodes and feedback which is just used
+                         to store the feedback responses as a proof of concept.
+                    </p>
+                    <p>
+                        db_actions.py defines the functions that perform the create, update and delete (CRUD) actions.
+                    </p>
+                    <mark>Note: An oversight was creating these as static methods. A future improvement would be to make them class methods for 
+                        a cleaner way of making the calls to the database actions.
+                    </mark>
+                    <p>schemas.py contains the schemas for objects which are returned by the FastAPI endpoint. These are Pydantic models.</p>
+                    <h3>Providers</h3>
+                    <p>Providers has a base class which defines a provider. There is a .py file for every provider. </p>
+                    <p>Each provider file overrides the following methods. This is because the behaviour can be different depending on the provider 
+                        so there are differences in how the IDP's requests and responses are handled.
+                    </p>
+                    <ul>
+                        <li><strong>get_auth_url</strong> - Returns the auth URL specific to the IDP.</li>
+                        <li><strong>exchange_code</strong> - Exchanges the auth code for a token issued by the provider. </li>
+                        <li><strong>get_user_info</strong> - Retrieves the user information from the provider.</li>
+                    </ul>
+                    <p>rovider_registry.py defines the get_provider function that is used to create an instance of the provider depending on the IDP name.</p>
+                    <p>providers.json is a helper for defining the provider, it's ID and media location so they can be returned in the auth/providers endpoint</p>
+                    <h3>Static</h3>
+                    <p>This is where the media assets are stored and hosted so that the front end can retrieve the logos for each IDP.</p>
+                    <h3>Utils</h3>
+                    <p>The app_utils.py file contains helper methods used by the FastAPI code.</p>
+
+                </div>
+            </div>     
+        </section>
+
+        <section id="login-endpoint">
+            <div class="panel">
+                <h2>Login Endpoint</h2>                  
+                    <div class="description">
+                        The logon endpoint takes query parameters "redirect_uri" and "set_cookie". These are optional.
+
+                    </div>
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+@router.get("/{provider}/login")
+async def login(provider: str,redirect_uri: str | None = Query(None),set_cookie : bool = Query(True)):
+    """
+        Performs the login to the IDP using their authorisation endpoint. It then redirects to the token exchange endpoint.
+        Example: https://localhost:8000/auth/linkedin/login
+    """
+
+    idp = get_provider(provider)
+
+    # Generate secure state
+   
+    if(redirect_uri):
+        #Check on allowed redirects list
+        if redirect_uri not in ALLOWED_REDIRECTS :
+            print("REDIRECT NOT AUTHORIZED")
+            return RedirectResponse(f"{redirect_uri}?error=unauthorised")
+
+    #The redirect uri is encoded in the state data, this is for redirects from different clients, e.g. android, web
+    state_data = {
+        "csrf": str(uuid.uuid4()),
+        "redirect_uri": redirect_uri,
+        "set_cookie" : set_cookie
+    }
+    state = base64.urlsafe_b64encode(json.dumps(state_data).encode()).decode()
+
+    auth_url = await idp.get_auth_url(state)
+
+    # Redirect browser immediately
+    response = RedirectResponse(auth_url)
+
+    # Store state in a cookie
+    response.set_cookie(
+        key=f"oauth_state_{provider}",
+        value=state,
+        httponly=True,
+        secure=True,
+        samesite="none"
+    )
+
+    return response
+                            </code>
+                        </pre>
+                    </div>
+            </div>
         </section>
     </main>
     
