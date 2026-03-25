@@ -68,6 +68,24 @@ header.project-page {
     height: 100%;
 }
 
+header.project-page .page-nav {
+    display: flex;
+    flex-direction: row;
+}
+
+header.project-page .page-nav .banner {
+    width: 50%;
+}
+
+
+header.project-page .page-nav .nav {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--nav-color);
+}
+
 header .hero-section {
     width: 1280px;
     margin: auto;
