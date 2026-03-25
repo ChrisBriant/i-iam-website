@@ -21,7 +21,7 @@
             </div>
             <div class="page-nav">
                 <div class="banner">
-                    <img src="./assets/hero-image.jpg" alt="A-IAM Main Graphic">
+                    <!-- <img src="./assets/hero-image.jpg" alt="A-IAM Main Graphic"> -->
                 </div>
                 <div class="nav">
                     <h1>Identity Broker</h1>
@@ -63,6 +63,9 @@
                     </ul>
                     <ul>
                         <li><a href="#logout-endpoint" >Sign Out</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#terms-and-conditions" >Terms and Conditions</a></li>
                     </ul>
                 </div>
             </div>
@@ -670,6 +673,7 @@ async def refresh_jwt(request: Request, response: Response, refresh: Optional[Re
                     </div>
             </div>  
         </section>
+
         <section id="token-validation">
             <div class="panel vert">
                 <h2>Token Validation</h2>                  
@@ -788,6 +792,68 @@ def logout(response: Response):
         samesite="none",
     )
     return {"status": "logged_out"}
+                            </code>
+                        </pre>
+                    </div>
+            </div>  
+        </section>
+
+        <section id="terms-and-conditions">
+            <div class="panel vert">
+                <h2>Accept Terms and Conditions</h2>                  
+                    <div class="description">
+                        <p>
+                            I have incorporated the acceptance of the terms and conditions into the authentication flow.
+                        </p>
+                        <p>The terms and conditions acceptance is held within the user profile. The session endpoint will return a cookie with this value 
+                            encoded. When the client reads the acceptance value it can redirect to a page within the application to enable the user to 
+                            accept the terms and conditions.
+                        </p>
+                        <p>The acceptterms endpoint below will update the database with the acceptance and set a new token pair with the updated user profile 
+                            encoded. The cookie needs to be set again and the data returned for the mobile client.</p>
+                    </div>
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+@router.post("/acceptterms", response_model=UserProfileSchema)
+async def accept_terms(response: Response, set_cookie : bool = Query(True), token_data = Depends(validate_jwt)):
+    """
+        Accepts the terms and conditions in the database and then updates the token
+    """
+    try:
+        await update_terms_accepted(token_data["user_id"])
+    except Exception as e:
+        raise HTTPException(status_code=400, detail="Unable to update the terms and conditions.")
+    
+    #Issue a new JWT with the updated accepted terms
+    jwt_token_pair = obtain_jwt_pair(token_data["user_id"], token_data["idp"], token_data["alias"], True)
+    
+    # Set new cookies
+    if set_cookie:
+        response.set_cookie(
+            key="access_token",
+            value=jwt_token_pair["access"],
+            httponly=True,
+            secure=True,
+            samesite="none",
+            max_age=ACCESS_TOKEN_LIFETIME
+        )
+
+        response.set_cookie(
+            key="refresh_token",
+            value=jwt_token_pair["refresh"],
+            httponly=True,
+            secure=True,
+            samesite="none",
+            max_age=REFRESH_TOKEN_LIFETIME
+        )
+
+    return UserProfileSchema(
+        id=token_data["user_id"],
+        idp= token_data["idp"],
+        accepted_terms = True,
+        alias=token_data["alias"]
+    )
                             </code>
                         </pre>
                     </div>

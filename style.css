@@ -69,21 +69,30 @@ header.project-page {
 }
 
 header.project-page .page-nav {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 header.project-page .page-nav .banner {
-    width: 50%;
+    /* width: 50%; */
+    width: 100%;
+    height: 100%;
+    background-image: url('./assets/hero-image.jpg');
+    background-size: cover;
+    background-position: center;
 }
 
 
 header.project-page .page-nav .nav {
-    width: 50%;
     height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     background-color: var(--nav-color);
+}
+
+header.project-page .page-nav .nav  ul {
+    padding-left: 10px;
 }
 
 header .hero-section {
