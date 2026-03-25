@@ -166,6 +166,11 @@ a.btn:hover {
 .panel {
     max-width: 1260px;
     margin: 10px auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.panel.vert {
+    padding: 10px;
 }
 
 .panel p {
