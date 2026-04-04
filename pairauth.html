@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>A-IAM - Device Based Authentication</title>
+</head>
+<body>
+    <header class="project-page">
+        <div class="hero-section">
+            <div class="nav">
+                <p>A-IAM</p>
+                <nav>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="/topics">Topics</a></li>
+                        <li><a href="/topics">Projects</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="page-nav">
+                <div class="banner">
+                    <!-- <img src="./assets/hero-image.jpg" alt="A-IAM Main Graphic"> -->
+                </div>
+                <div class="nav">
+                    <h1>Device Based Authentication</h1>
+                    <ul>
+                        <li><a href="#about" >About</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#mfa" >Multi-Factor Authentication (MFA)</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#architecture" >Architecture</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#cryptography" >Cryptography</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#device-reg" >Device Registration</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#sign-in-flow" ></a>Sign In Authentication Flow</li>
+                    </ul>
+                    <!-- <ul>
+                        <li><a href="browser-authentication-flow" >Browser Auth Flow</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#project-structure" >Project Structure</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#login-endpoint" >Login Endpoint</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="callback-endpoint" >Callback Endpoint</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#obile-auth-code" >Mobile Flow - Auth Code Exchange</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#obtaining-session" >Obtaining the Session</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#refresh-endpoint" >Token Refresh</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="token-validation" >Token Validation</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#logout-endpoint" >Sign Out</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#terms-and-conditions" >Terms and Conditions</a></li>
+                    </ul> -->
+                </div>
+            </div>
+
+    </header>
+    <main>
+        <section id="about">
+            <div class="panel panel-30-70">
+                <div class="left">
+                    <h2>About</h2>
+                    <div class="panel-image">
+                        <img src="./assets/keys.jpg" alt="Identity Broker" />
+                    </div>
+                </div>
+                <div class="right content">
+                    <p>
+                        The <strong>Device Based Authentication</strong> focuses on implementing an additional authentication factor through device-based verification. It links a user’s session to a trusted device, such as a mobile phone, which is used to confirm their identity during sign-in. By introducing this second factor, the system strengthens security beyond traditional passwords while maintaining a smooth and user-friendly authentication experience.
+                    </p>
+                    <p>
+                        This project demonstrates the <strong>registration process</strong> and the <strong>sign in</strong> process.
+                    </p>
+                    <p>For this demonstration the user is interacting with a web based front end and a mobile Android app.</p>
+                    <ol>
+                        <li>First the user registers with a user name and password</li>
+                        <li>The user is registered and then we move onto the next stage which is device registration</li>
+                        <li>The user is presented with the challenge code presented as a QR code on the screen</li>
+                        <li>The QR code is scanned by the camera on the mobile device or entered manually.</li>
+                        <li>The device is authenticated and registered</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <section id="try-it">
+            <div class="panel panel-30-70 action-panel">
+                <div class="left">
+                    <img src="/assets/try-it-2.png" alt="Try It Glowing Text">
+                </div>
+                <div class="right">
+
+                </div>
+            </div>
+
+        </section>
+
+        <section id="mfa">
+            <div class="panel vert">
+                <h2>Multi-Factor Authentication (MFA)</h2>
+                <p>This project demonstrates Multi-Factor Authentication. We are introducing a second factor of authentication by using the user's device 
+                    as another factor. 
+                </p>
+                <h3>Authentication Factors</h3>
+                <ol>
+                    <li>Something you know - Password Based Authentication</li>
+                    <li>Something you have - Mobile Device Authentication</li>
+                </ol>
+                <h3>Authentication Flows</h3>
+                <p>There are two authentication flows that need to be handled.</p>
+                <ol>
+                    <li>Registration Flow - The user registers a user name and password and a device</li>
+                    <li>Sign-in Flow - The user signs in with user name and password and device verification</li>
+                </ol>
+
+            </div>
+        </section>
+
+        <section id="architecture">
+            <div class="panel panel-30-70">
+                <div class="left">
+                    <h2>Architecture</h2>
+                    <div class="panel-image">
+                        <img src="./assets/architecture.jpg" alt="Architecture" />
+                    </div>
+                </div>
+                <div class="right content">
+                    <p>
+                        The following infrastructure components are needed for this project.</strong>
+                    </p>
+                    <ol>
+                        <li>Backend Server to handle registration and sign-in flow and issue tokens</li>
+                        <li>Database to store users, devices and tokens</li>
+                        <li>Web based front-end app to handle user interaction</li>
+                        <li>Android app to handle device registration</li>
+                    </ol>
+                    <h3>Backend Server</h3>
+                    <p>The backend server hosts a REST API which is developed using the Python FAST API Framework.</p>
+                    <p>The REST API has endpoints to handle registration (user name / password, device). The backend is responsible for verifying authenticity and redirecting responses to the 
+                        browser app / user's device.</p>
+                    <h3>Database</h3>
+                    <p>For this project a local <strong>Postgres</strong> database is used with the following tables:</p>
+                    <ol>
+                        <li>Users - Stores user credentials</li>
+                        <li>Devices - Stores user devices, including the public key for signing</li>
+                        <li>Tokens - Stores challenge tokens for managing the authentication state</li>
+                    </ol>
+                    <h3>Web App</h3>
+                    <p>This is the front end which I have created using the <string>React</string> framework, written in JavaScript.</p>
+                    <p>The front end is to demonstrate the authentication flow and runs in the browser, allowing the user to register and sign in.</p>
+                    <p>The font end renders the challenge code as a QR code on the screen that the user scans with the camera on their phone.</p>
+                    <h3>Device Authenticator App</h3>
+                    <p>For this demonstration, I have created an Android App using the <strong>Flutter Framework</strong>, written in <strong>Dart</strong>.</p>
+                    <p>The Android App handles the scanning of the QR code and then sends authentication data to the back end for verification.</p>
+                    <p>Once verified the user continues the sign in / registration process from the web app.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="cryptography">
+            <div class="panel panel-30-70">
+                <div class="left">
+                    <h2>Cryptography</h2>
+                    <div class="panel-image">
+                        <img src="./assets/cryptography.jpg" alt="Cryptography" />
+                    </div>
+                </div>
+                <div class="right">
+                    <h3>Asymmetric Cryptography</h3>
+                    <p><strong>Asymmetric Cryptography</strong> is used. This is in the form of a private / public key pair which is 
+                    generated on the device. The private key remains on the device and is used to sign the challenge code to generate a signature</p>
+                    <p>The back end receives the public key, signature and verifies the device authenticity and the user based on the generated challenge code.</p>
+                    <p>The public key is stored in in the devices table so that sign in requests can be verified using the stored public key. The mobile device now only 
+                        needs to send the device ID and signature as the public key can be retrieved from the device record.
+                    </p>
+                    <h3>Hashing</h3>
+                    <p>User passwords are hashed using the <strong>Blowfish Cypher</strong> and a 128-bit salt using <strong>BCrypt</strong>.</p>    
+                </div>
+            </div>
+        </section>
+
+        <section id="device-reg">
+            <div class="panel panel-70-30">
+                <div class="left">
+                    <h2>Registration Flow</h2>
+                    <div class="panel-image">
+                        <img src="./assets/pair-auth-registration-flow.png" alt="Registration Flow" />
+                    </div>
+                </div>
+                <div class="right content">
+                    <p>
+                        The registration flow handles the user signing up to use the application. These are the steps taken.
+                    </p>
+                    <ol>
+                        <li>The user registers with a user name and password</li>
+                        <li>A challenge token is stored by the backend and issued to the user via the browser app</li>
+                        <li>The challenge code is displayed on the user's screen by the web based app they are interacting with</li>
+                        <li>The user scans the challenge code (QR code) with their mobile device</li>
+                        <li>The mobile device opens the app using the deep link encoded and generates a new private key and public key pair</li>
+                        <li>The device signs the challenge code and generates a signature to prove authenticity of the device</li>
+                        <li>The device sends a payload containing the signature, challenge code, public key and optional device name</li>
+                        <li>The backend verifies:</li>
+                            <ol>
+                                <li>The challenge code is valid by looking up the token and retrieving the user record</li>
+                                <li>The device signature using the challenge code and public key</li>
+                            </ol>
+                        <li>Once verified the device is registered in the database and the confirmation sent back to the device</li>
+                        <li>The device stores the device ID for identification when signing up</li>
+                    </ol>
+                </div>
+            </div>    
+        </section>
+
+        <section id="sign-in-flow">
+            <div class="panel panel-70-30">
+                <div class="left">
+                    <h2>Sign-in Authentication Flow</h2>
+                    <div class="panel-image">
+                        <img src="./assets/pairauth-signin-flow.png" alt="Sign In Authentication Flow" />
+                    </div>
+                </div>
+                <div class="right">
+                    <p>The signin flow processes the user signing in using the two authentication factors. These are the steps used.</p>
+                    <ol>
+                        <li>The access and refresh tokens stored in cookies in the browser are verified by the backend server via the session endpoint</li>
+                        <li>If the session is not valid or has expired after validating the access token and running the refresh cycle if required then the sign in process is initiated</li>
+                        <li>The user signs in with their user name and password using the web based front end</li>
+                        <li>The user is verified at the backend which generates a new challenge token for sign in</li>
+                        <li>The backend sets a challenge cookie that is stored in the user's browser</li>
+                        <li>The web application receives the challenge code and presents a QR code for the user to scan using their registered mobile device</li>
+                        <li>The Android app is opened using the deep link encoded in the QR code</li>
+                        <li>The app signs the new challenge using the stored private key and sends a payload containing the registered device ID, the signature and challenge code</li>
+                        <li>The back end looks up the device which has the public key stored</li>
+                        <li>The signature is verified to using the challenge code and public key which confirms authenticity of the device</li>
+                        <li>The token is then validated and if successful then the token is marked as verified in the database</li>
+                        <li>The device receives confirmation and prompts the user to continue</li>
+                        <li>The user presses continue in the web app which redirects them to the complete-sign-in endpoint to complete the sign in process</li>
+                        <li>The endpoint validates the challenge cookie and marks the token as used</li>
+                        <li>If successful a JWT access and refresh token are issued and stored in the browser by setting session cookies</li>
+                        <li>The back end redirects to the web applications home page</li>
+                        <li>The web application reruns the JWT access / refresh cycle by calling the session endpoint at the backend</li>
+                    </ol>
+    
+                </div>
+            </div>     
+        </section>
+
+        <section id="backend-rest-api">
+            <div class="panel panel-40-60">
+                <div class="left">
+                <h2>Backend REST API</h2>                  
+                    <div class="preformatted-text">
+                         <pre>
+│   main.py
+│
+├───data
+│   │   db.py
+│   │   db_setup.py
+│   │   models.py
+│   │   schemas.py
+│
+├───routes
+│   │   auth_routes.py
+│   │
+│
+├───services
+│   │   auth.py
+│   │   auth_exceptions.py
+│   │   token.py
+│   │   utils.py
+
+                         </pre>   
+                    </div>
+                </div>
+                <div class="right">
+
+                </div>
+            </div>
+        </section>
+
+        <section id="callback-endpoint">
+            <div class="panel vert">
+                <h2>Callback Endpoint</h2>                  
+                    <div class="description">
+                        <p>The IDP redirects to this URL the code and optional state</p>
+                        <p>The provider is retrieved which has methods to exchange the code for a token and then retrieve the user profile.</p>
+                        <p>The state is checked if it exists and a 401 error returned if it doesn't match.</p>
+                        <p>An access token is obtained from the IDP and then used to retrieve the user profile.</p>
+                        <p>User profile data is used to create or fetch a user record from the database.</p>
+                        <p>We then obtain the JWT token pair for issue to the client.</p>
+                        <p>The function branches depending on the set_cookie variable which is read from the encoded state. If it is true 
+                            then we are setting the cookie to allow the browser app to authenticate using the token.
+                        </p>
+                        <p>If we are not setting the cookie then the mobile authentication flow is handled. This involves creating an auth 
+                            code which is stored in the local database and sent back to the client.
+                        </p>
+                        <p>This completes the authentication flow for browser sign-ins, but for mobile devices another stage is required</p>
+                    </div>
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+@router.get("/{provider}/callback", response_model=str)
+async def auth_callback_with_redirect(request: Request, provider: str, code: str, state: str | None = Query(None)):
+    """
+        Handles the callback from the IDP
+        1. Takes the code from the payload and exchanges it for a token
+        2. The token is verified and the user profile data returned
+        3. User profile data is stored in the database
+        4. JWT token is issued and set within the session cookie
+    """
+
+    idp = get_provider(provider)
+
+    #Handle the state if it is in the payload
+    stored_state = request.cookies.get(f"oauth_state_{provider}")
+    if state:
+        print("STATES", stored_state, state)
+        if stored_state != state:
+            raise HTTPException(status_code=401,detail="Invalid state")
+    #Check for redirect URI in stored_state
+    state_data = json.loads(base64.urlsafe_b64decode(stored_state).decode())
+    redirect_uri = state_data.get("redirect_uri")
+    set_cookie = state_data.get("set_cookie")
+    print("REDIRECT URI IS ", redirect_uri, set_cookie)
+
+    #State is passed in as some providers need to pass it to the token endpoint
+    access_token = await idp.exchange_code(code, state)
+
+    #Verify the token and return the user profile data
+    user_profile = await idp.get_user_info(access_token)
+
+    # database logic here
+    user_record = await get_or_add_user(str(user_profile["id"]),provider,None,user_profile['email'])
+    if not user_record:
+        raise HTTPException(
+            status_code=400,
+            detail="Failed to create the user"
+        )
+    #Issue a JWT
+    jwt_token_pair = obtain_jwt_pair(str(user_record["id"]),user_record["idp"], user_record["alias"], user_record["terms_accepted"]) 
+ 
+    #Set the redirect URI depending on whether it exists in the cookie set to default if not in cookie
+    response_redirect_uri = redirect_uri if redirect_uri else os.environ.get("CLIENT_REDIRECT_URI")
+
+    #Divert flow depending on whether delivering tokens in cookie or sending auth code
+    if set_cookie:
+        response = RedirectResponse(
+            url=response_redirect_uri,
+            status_code=302
+        )
+        # Access token cookie
+        response.set_cookie(
+            key="access_token",
+            value=jwt_token_pair["access"],
+            httponly=True,
+            secure=True,          # HTTPS only
+            samesite="none",
+            max_age=ACCESS_TOKEN_LIFETIME,
+        )
+
+        # Refresh token cookie
+        response.set_cookie(
+            key="refresh_token",
+            value=jwt_token_pair["refresh"],
+            httponly=True,
+            secure=True,
+            samesite="none",
+            max_age=REFRESH_TOKEN_LIFETIME, 
+        )
+    else :
+        #Generate an auth code
+        auth_code = await create_auth_code(user_record["id"])
+        response = RedirectResponse(
+            url= f"{response_redirect_uri}?code={auth_code.code}",
+            status_code=302
+        )
+
+    return response
+
+                            </code>
+                        </pre>
+                    </div>
+            </div>     
+        </section>
+
+        <section id="mobile-auth-code">
+            <div class="panel vert">
+                <h2>Mobile Device Flow - Auth Code Exchange</h2>                  
+                    <div class="description">
+                        <p>This endpoint function takes the auth code from within the JSON payload and validates the auth code.</p>
+                        <p>If the code is valid then the user profile is returned. A JWT pair is created and sent back to the client as JSON data in the response.</p>
+                        <p>During the validation process the auth code is marked as used so that it cannot be used again.</p>
+                        <p>This completes the mobile login flow.</p>
+
+                    </div>
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+@router.post("/exchangeauthcodeforjwt", response_model=TokenSchema)
+async def exchange_auth_code_for_jwt(auth_code : AuthCodeSchema):
+    """
+        This endpoint is called by the client to exchange an auth code for a JWT token and return the response as Json
+        This is designed to support authorisation flows where there isn't an option of setting an authorisaton cookie
+    """
+    #Get the user from the database if the code is valid
+    user = await validate_auth_code(auth_code.auth_code)
+    if not user:
+        raise HTTPException(status_code=401,detail="Authorisation code is invalid")
+    
+    jwt_token_pair = obtain_jwt_pair(user.id, user.idp, user.alias, user.terms_accepted)
+
+    response = TokenSchema(
+        access_token = jwt_token_pair['access'],
+        refresh_token = jwt_token_pair['refresh'],
+    )
+
+    return response
+
+                            </code>
+                        </pre>
+                    </div>
+            </div>       
+        </section>
+
+        <section id="obtaining-session">
+            <div class="panel vert">
+                <h2>Obtaining the Session</h2>                  
+                    <div class="description">
+                        <p>The auth/session endpoint is used by the client to check that the token is still valid. If successful 
+                            then it will return the user profile in the json payload.
+                        </p>
+                        <p>If the token is not valid then it will return an error which tells the client to retry the refresh endpoint.</p>
+                    </div>
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+@router.get("/session", response_model=UserProfileSchema)
+async def get_session(token_data = Depends(validate_jwt)):
+    response = UserProfileSchema(
+        id=token_data["user_id"],
+        idp= token_data["idp"],
+        accepted_terms = token_data["accepted_terms"],
+        alias=token_data["alias"]
+    )
+    return response
+                            </code>
+                        </pre>
+                    </div>
+            </div>      
+        </section>
+
+        <section id="refresh-endpoint">
+            <div class="panel vert">
+                <h2>Token Refresh</h2>                  
+                    <div class="description">
+                        <p>The refresh endpoint attempts to validate the refresh token.
+                        </p>
+                        <p>If the token is not valid then it will return an error which tells the client to retry the refresh endpoint.</p>
+                        <p>If successful then the cookies are set with the new token pair and the token pair is also returned in the JSON response.</p>
+                    </div>
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+@router.post("/refresh")
+async def refresh_jwt(request: Request, response: Response, refresh: Optional[RefreshTokenSchema], set_cookie : bool = Query(True)):
+    """
+        Takes the refresh token and issues a new token pair and sets the session cookie
+    """
+
+    # Fallback to cookie (browser clients)
+    if not refresh.token:
+        refresh_token = request.cookies.get("refresh_token")
+    else:
+        refresh_token = refresh.token
+    try:
+        jwt_token_pair = refresh_jwt_pair(refresh_token)
+
+    except RefreshTokenExpiredError as e:
+        print("Refresh token expired", e)
+        raise HTTPException(status_code=401, detail="Refresh token expired")
+
+    except InvalidRefreshTokenError as e:
+        print("Refresh token invalid", e)
+        raise HTTPException(status_code=401, detail="Refresh token invalid")
+
+    # Set new cookies
+    if set_cookie:
+        response.set_cookie(
+            key="access_token",
+            value=jwt_token_pair["access"],
+            httponly=True,
+            secure=True,
+            samesite="none",
+            max_age=ACCESS_TOKEN_LIFETIME
+        )
+
+        response.set_cookie(
+            key="refresh_token",
+            value=jwt_token_pair["refresh"],
+            httponly=True,
+            secure=True,
+            samesite="none",
+            max_age=REFRESH_TOKEN_LIFETIME
+        )
+
+        return {"status": "refreshed"}
+    
+    token_pair = TokenSchema(
+        access_token = jwt_token_pair['access'],
+        refresh_token = jwt_token_pair['refresh'], 
+    )
+
+    return token_pair
+                            </code>
+                        </pre>
+                    </div>
+            </div>  
+        </section>
+
+        <section id="token-validation">
+            <div class="panel vert">
+                <h2>Token Validation</h2>                  
+                    <div class="description">
+                        <p>
+                            The validate_jwt function is designed to read the token from the authorization header. If it fails then 
+                            it falls back to reading the token from the cookie. This is so that both mobile and browser flows work. The 
+                            mobile device has to send the token in the header as it cannot retain the cookie.
+                        </p>
+                        <p>This function will return errors if for different states of invalid tokens.</p>
+                    </div>
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+async def validate_jwt(request: Request):
+
+    token = None
+
+    # 1. Try Authorization header (mobile/API clients)
+    auth_header = request.headers.get("Authorization")
+    if auth_header and auth_header.startswith("Bearer "):
+        token = auth_header.split(" ")[1]
+
+    # 2. Fallback to cookie (browser clients)
+    if not token:
+        token = request.cookies.get("access_token")
+
+    if not token:
+        raise HTTPException(status_code=401, detail="Authentication token missing.")
+
+    try:
+        payload = jwt.decode(token, os.environ.get("SECRET_KEY"), algorithms=[ALGORITHM])
+    except ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Token has expired.")
+    except InvalidAudienceError:
+        raise HTTPException(status_code=401, detail="Invalid audience.")
+    except InvalidSignatureError:
+        raise HTTPException(status_code=401, detail="Invalid token signature.")
+    except Exception:
+        raise HTTPException(status_code=401, detail="Invalid token.")
+
+    return payload
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="description">
+                        <p>The refresh_jwt_pair function validates the JWT token and if successful it will make a call to obtain_jwt_pair. 
+                            This completes the cycle allowing the refresh endpoint to then issue the new token pair.
+                        </p>
+                    </div>
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+def refresh_jwt_pair(refresh_token: str):
+    try:
+        payload = jwt.decode(
+            refresh_token,
+            os.environ.get("SECRET_KEY"),
+            algorithms=[ALGORITHM]
+        )
+
+        # Ensure this is a refresh token
+        if payload.get("type") != "refresh":
+            raise Exception("Invalid token type")
+
+        user_id = payload.get("user_id")
+
+        # If you stored these in the refresh token (recommended)
+        alias = payload.get("alias")
+        idp = payload.get("idp")
+        accepted_terms = payload.get("accepted_terms")
+
+        # Generate new tokens
+        return obtain_jwt_pair(user_id, idp, alias, accepted_terms)
+
+    except jwt.ExpiredSignatureError:
+        raise RefreshTokenExpiredError("Refresh token expired")
+
+    except jwt.InvalidTokenError:
+        raise InvalidRefreshTokenError("Invalid refresh token")
+    
+                            </code>
+                        </pre>
+                    </div>
+            </div>       
+        </section>
+
+        <section id="logout-endpoint">
+            <div class="panel vert">
+                <h2>Sign Out</h2>                  
+                    <div class="description">
+                        <p>
+                            Sign out is handled at the backend by deleting the cookies. This is for the browser based authentication flow only.
+                             When the cookies are deleted the browser client is forced to sign out.
+                        </p>
+                    </div>
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+@router.post("/logout")
+def logout(response: Response):
+    """
+        Logs out the user by clearing the Cookies
+    """
+    response.delete_cookie(
+        key="access_token",
+        path="/",
+        secure=True,
+        samesite="none",
+    )
+
+    response.delete_cookie(
+        key="refresh_token",
+        path="/",
+        secure=True,
+        samesite="none",
+    )
+    return {"status": "logged_out"}
+                            </code>
+                        </pre>
+                    </div>
+            </div>  
+        </section>
+
+        <section id="terms-and-conditions">
+            <div class="panel vert">
+                <h2>Accept Terms and Conditions</h2>                  
+                    <div class="description">
+                        <p>
+                            I have incorporated the acceptance of the terms and conditions into the authentication flow.
+                        </p>
+                        <p>The terms and conditions acceptance is held within the user profile. The session endpoint will return a cookie with this value 
+                            encoded. When the client reads the acceptance value it can redirect to a page within the application to enable the user to 
+                            accept the terms and conditions.
+                        </p>
+                        <p>The acceptterms endpoint below will update the database with the acceptance and set a new token pair with the updated user profile 
+                            encoded. The cookie needs to be set again and the data returned for the mobile client.</p>
+                    </div>
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+@router.post("/acceptterms", response_model=UserProfileSchema)
+async def accept_terms(response: Response, set_cookie : bool = Query(True), token_data = Depends(validate_jwt)):
+    """
+        Accepts the terms and conditions in the database and then updates the token
+    """
+    try:
+        await update_terms_accepted(token_data["user_id"])
+    except Exception as e:
+        raise HTTPException(status_code=400, detail="Unable to update the terms and conditions.")
+    
+    #Issue a new JWT with the updated accepted terms
+    jwt_token_pair = obtain_jwt_pair(token_data["user_id"], token_data["idp"], token_data["alias"], True)
+    
+    # Set new cookies
+    if set_cookie:
+        response.set_cookie(
+            key="access_token",
+            value=jwt_token_pair["access"],
+            httponly=True,
+            secure=True,
+            samesite="none",
+            max_age=ACCESS_TOKEN_LIFETIME
+        )
+
+        response.set_cookie(
+            key="refresh_token",
+            value=jwt_token_pair["refresh"],
+            httponly=True,
+            secure=True,
+            samesite="none",
+            max_age=REFRESH_TOKEN_LIFETIME
+        )
+
+    return UserProfileSchema(
+        id=token_data["user_id"],
+        idp= token_data["idp"],
+        accepted_terms = True,
+        alias=token_data["alias"]
+    )
+                            </code>
+                        </pre>
+                    </div>
+            </div>  
+        </section>
+    </main>
+    
+</body>
+</html>
