@@ -65,7 +65,10 @@
                         <li><a href="#logout-endpoint" >Sign Out</a></li>
                     </ul>
                     <ul>
-                        <li><a href="#terms-and-conditions" >Terms and Conditions</a></li>
+                        <li><a href="#react-front-end" >React Front End</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#react-token-refresh" >Token Refresh and Session Handling</a></li>
                     </ul>
                 </div>
             </div>
@@ -98,7 +101,21 @@
                     <img src="/assets/try-it-2.png" alt="Try It Glowing Text">
                 </div>
                 <div class="right">
-
+                    <a href="https://id-broker.chrisbriant.uk" target="#blank" class="cta-link dark">
+                        <h1>Click Here to Try the App</h1>
+                    </a>
+                    <p></p>
+                    <p></p>
+                    <a href="https://id-broker-api.chrisbriant.uk/docs" target="#blank" class="cta-link dark">
+                        <h2>
+                            Click here to view the API documentation
+                        </h2>
+                    </a>
+                    <a href="https://github.com/ChrisBriant/Identity-Broker" target="#blank" class="cta-link dark">
+                        <h2>
+                            Click here to view the Git Hub code
+                        </h2>
+                    </a>
                 </div>
             </div>
 
@@ -854,6 +871,87 @@ async def accept_terms(response: Response, set_cookie : bool = Query(True), toke
         accepted_terms = True,
         alias=token_data["alias"]
     )
+                            </code>
+                        </pre>
+                    </div>
+            </div>  
+        </section>
+
+        <section id="react-front-end">
+            <div class="panel panel-30-70">
+                <div class="left">
+                    <h2>The React Frontend</h2>
+                    <div class="panel-image">
+                        <img src="./assets/id_broker_screen.jpg" alt="ID Broker Menu" />
+                    </div>
+                </div>
+                <div class="right content">
+                    <p>To demonstrate this application, I have built a front end web app using the React Framework (JavaScript).</p>
+                    <p>The app is designed to do the following:</p>
+                    <ol>
+                        <li>Handle the token refresh lifecycle</li>
+                        <li>If the token is not valid then to redirect the user to the sign in page</li>
+                        <li>If the user is authenticated then it displays a profile page and the option to leave feedback</li>
+                    </ol>
+                    <p>To see this demonstration, the app can be accessed <a href="https://id-broker.chrisbriant.uk" target="#blank">here</a>.</p>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="react-token-refresh">
+            <div class="panel vert">
+                <h2>React Token Refresh Cycle</h2>                  
+                    <div class="description">
+                        <p>
+                            In the App.jsx file the code uses the useEffect hook to handle the token refresh cycle. It does the 
+                            following:
+                        </p>
+                        <ol>
+                            <li>It makes a call to the backend to obtain the session. If successful it sets the profile which triggers 
+                                the display to present the authenticated content.
+                            </li>
+                            <li>If unauthorized, it will attempt a token refresh.</li>
+                            <li>If the refresh is successful then it will make another call to the session and load the profile.</li>
+                            <li>If unauthorized then the user is redirected to the sign in page where the IDP list is displayed.</li>
+                        </ol>
+                        <p>To see the full code for the front end please visit my <a href="https://github.com/ChrisBriant/react_identity_broker" target="#blank">Git Hub Repository</a>.</p>
+                    </div>
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+  useEffect(() => {
+    getSession().then((res) => {
+      //Set loaded, profile and authenticated 
+      setLoadingSession(false);
+      setAuthenticated(true);
+      setProfile(res);
+    }).catch(err => {
+      if(err.response.status === 401) {
+        //Try refresh
+        refresh().then( async (res) => {
+            const profile = await getSession();
+            setProfile(profile);
+            setLoadingSession(false);
+            setAuthenticated(true);
+        }).catch(async err => {
+          if(err.response.status === 401) {
+            //Re-authentication required
+            setLoadingSession(false);
+            setAuthenticated(false);
+            //Authentication has failed so the user needs to sign in
+            try {
+              const idpList = await getIdpList();
+              setIdps(idpList);
+            } catch(err) {
+              console.error("An error occurred retrieving the IDP list.", err);
+            }
+
+          }
+        });
+      }
+    });
+  }, [sessionRefresh])
                             </code>
                         </pre>
                     </div>

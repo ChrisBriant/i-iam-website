@@ -12,6 +12,8 @@
     /* --panel-action-background-color : #25213c; */
     --panel-action-background-color : #000;
     --preformatted-text-background-color : #e0e0e0;
+    /* links  */
+    --cta-link-dark : #fff;
 }
 
 * {
@@ -68,7 +70,7 @@ img {
 }
 
 header {
-    height: 100vh;
+    /* min-height: 100vh; */
 }
 
 header.project-page {
@@ -126,6 +128,15 @@ header h1 {
     width: 100%;
 }
 
+/* LINKS  */
+
+a.cta-link {
+    text-decoration: none;
+    text-align: center;
+    width: 100%;
+    color: var(--cta-link-dark);
+}
+
 
 /* BUTTONS  */
 
@@ -155,6 +166,12 @@ a.btn:hover {
 }
 
 /* LAYOUT COMPONENTS  */
+
+main .panel {
+    margin: 10px auto;
+    padding: 10px;
+}
+
 
 .card {
     margin: 10px;
