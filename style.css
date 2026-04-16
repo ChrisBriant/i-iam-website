@@ -221,11 +221,19 @@ main .panel {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+.panel a ,
+.panel a:visited,
+.panel a:active
+{
+    text-decoration: none;
+}
+
 .panel.vert {
     padding: 10px;
     width: 96%;
 }
 
+.panel h3,
 .panel p {
     margin: 10px 0;
 }
