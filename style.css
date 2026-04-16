@@ -9,6 +9,9 @@
     --button-text-color : #fff;
     --button-background-color : #3d239f;
     --button-hover-color : #6046bb;
+    --footer-bg-color : #0b0b0b;
+    --footer-fg-color : #f7f1d4;
+    --footer-link-color : #5b42f9;  
     /* --panel-action-background-color : #25213c; */
     --panel-action-background-color : #000;
     --preformatted-text-background-color : #e0e0e0;
@@ -226,6 +229,7 @@ main .panel {
 .panel a:active
 {
     text-decoration: none;
+
 }
 
 .panel.vert {
@@ -309,4 +313,50 @@ main .panel {
 
 .preformatted-text code {
     overflow-x: scroll;
+}
+
+/* FOOTER STYLES  */
+
+footer {
+    color: var(--footer-fg-color);
+    background-color: var(--footer-bg-color);
+    padding: 20px;
+}
+
+footer .row {
+    display: flex;
+    flex-direction: row;
+}
+
+footer .row .col {
+    display: flex;
+    flex-direction: column;
+}
+
+footer .row .col.col-3 {
+    width: 33%;
+}
+
+footer .row .col.col-1 {
+    width: 100%;
+}
+
+footer a:visited,
+footer a:active,
+footer a {
+    text-decoration: none;
+    color: var(--footer-link-color);
+}
+
+footer img {
+    width: 60px;
+    height: 60px;
+    padding: 10px;
+}
+
+
+
+footer .centered {
+    text-align: center;
+    width: 100%;
 }
