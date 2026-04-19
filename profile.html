@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>About Me</title>
+</head>
+<body id="profile-page">
+    <header class="project-page">
+        <div class="hero-section">
+            <div class="nav">
+                <a href="/"><p>A-IAM</p></a>
+                <nav>
+                    <ul>
+                        <li><a href="#about" disable>About Me</a></li>
+                        <li><a href="/topics">Topics</a></li>
+                        <li><a href="/topics">Projects</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="page-nav">
+                <div class="banner">
+                    <!-- <img src="./assets/hero-image.jpg" alt="A-IAM Main Graphic"> -->
+                </div>
+                <div class="nav">
+                    <h1>About Me</h1>
+                    <p>I am an engineer with a strong focus on building secure, identity-driven applications across web, mobile, and API layers. 
+                        I design and implement REST APIs and backend services that integrate with identity and access management systems such as 
+                        Microsoft Entra ID and Okta, with a strong emphasis on secure authentication and authorisation patterns using OAuth2 and SAML. 
+                        On the frontend, I build responsive web applications using React, and I also develop Android applications, ensuring consistent secure 
+                        authentication flows across platforms. My work combines full-stack development with a security-first mindset, focusing on scalable architectures, 
+                        clean API design, and robust identity integration.</p>
+                </div>
+            </div>
+
+    </header>
+
+    <main>
+        <section id="interview">
+            <div class="panel panel-30-70">
+                <div class="left">
+                    <img src="./assets/me.jpg" alt="My Photo" />
+                </div>
+                <div class="right">
+
+                </div>
+                
+            </div>
+        </section>
+
+    </main>
+    <h1>Ask a Question</h1>
+
+    <textarea id="question" rows="4" cols="50" placeholder="Enter your question..."></textarea>
+    <br><br>
+
+    <button onclick="sendRequest()">Submit</button>
+
+    <h2>Response:</h2>
+    <div id="output"></div>
+
+    <script>
+        async function sendRequest() {
+            const question = document.getElementById("question").value;
+
+            try {
+                const res = await fetch("http://localhost:8000/ask-interview-question", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        question: question
+                    })
+                });
+
+                if (!res.ok) {
+                    throw new Error("Request failed");
+                }
+
+                const data = await res.json();
+
+                const output = document.getElementById("output");
+
+                // ✅ SIMPLE + SAFE rendering
+                output.style.whiteSpace = "pre-line";
+                output.textContent = data;
+
+            } catch (err) {
+                console.error(err);
+                document.getElementById("output").textContent = "Error calling API";
+            }
+        }
+    </script>
+
+</body>
+</html>
