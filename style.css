@@ -286,6 +286,11 @@ main .panel {
     width: 30%;
 }
 
+.panel .panel-image {
+    max-width: 400px;
+    margin: auto;
+}
+
 
 
 .left {
