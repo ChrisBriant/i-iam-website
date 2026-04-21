@@ -26,7 +26,7 @@
                 <h1>Where Artificial Intelligence Meets Identity Engineering</h1>
             </div>
             <div class="cta">
-                <h2>Projects</h2>
+                <h2>Explore My Work</h2>
                 <div class="project-grid">
                     <div class="card">
                         <div class="title">
@@ -36,10 +36,11 @@
                             <img src="./assets/ids_2.jpg" alt="Identity Broker" />
                         </div>
                         <div class="body">
+                            <a href="./idbroker.html" class="btn">See More</a>
                             A custom authentication service designed to centralise and simplify identity management across multiple applications. The project implements secure login flows, session handling, and token validation while supporting both web and mobile authentication patterns. It acts as an intermediary between applications and identity providers, enabling consistent authentication, improved security, and easier integration for new services.
                         </div>
                         <div class="footer">
-                            <a href="./idbroker.html" class="btn">See More</a>
+                            <!-- <a href="./idbroker.html" class="btn">See More</a> -->
                         </div>
                     </div>
                     <div class="card">
@@ -50,10 +51,11 @@
                             <img src="./assets/ai_cert.jpg" alt="AI Based Certification" />
                         </div>
                         <div class="body">
+                            <a href="" class="btn">See More</a>
                             The AI-Based Certification project is designed to determine the appropriate permissions a user should be granted based on their actual job responsibilities. Instead of relying on predefined roles, it asks targeted questions about what the individual does in their day-to-day work, then uses AI to evaluate their answers and map them to the access levels they genuinely require. This ensures permissions are assigned more accurately, reducing risk while aligning access with real-world responsibilities.
                         </div>
                         <div class="footer">
-                            <a href="" class="btn">See More</a>
+                            <!-- <a href="" class="btn">See More</a> -->
                         </div>
                     </div>
                     <div class="card">
@@ -64,10 +66,11 @@
                             <img src="./assets/keys.jpg" alt="Device Based Authentication" />
                         </div>
                         <div class="body">
+                            <a href="./pairauth.html" class="btn">See More</a>
                             This project focuses on implementing an additional authentication factor through device-based verification. It links a user’s session to a trusted device, such as a mobile phone, which is used to confirm their identity during sign-in. By introducing this second factor, the system strengthens security beyond traditional passwords while maintaining a smooth and user-friendly authentication experience.
                         </div>
                         <div class="footer">
-                            <a href="./pairauth.html" class="btn">See More</a>
+                            <!-- <a href="./pairauth.html" class="btn">See More</a> -->
                         </div>
                     </div>
                 </div>
@@ -78,13 +81,62 @@
         <section id="about">
             <div class="panel">
                 <h2>About</h2>
+                <p>This site showcases a collection of projects focused on authentication, identity management, and modern application development. It highlights practical implementations such as device-based authentication, identity brokering across multiple providers, and AI-assisted access reviews for role assignment. Each project reflects a hands-on approach to solving real-world security and scalability challenges using technologies across the full stack, from frontend interfaces to backend services and infrastructure. The aim of this portfolio is to demonstrate both technical capability and the ability to design, build, and deploy complete, production-ready solutions.</p>
             </div>
-            
         </section>
+
+        <section id="try-it">
+            <div class="panel panel-30-70 action-panel">
+                <div class="left">
+                    <img src="/assets/try-it-2.png" alt="Try It Glowing Text">
+                </div>
+                <div class="right">
+                    <a href="https://id-broker.chrisbriant.uk" target="#blank" class="cta-link dark">
+                        <h1>Click Here to Try the App</h1>
+                    </a>
+                    <p></p>
+                    <p></p>
+                    <a href="https://id-broker-api.chrisbriant.uk/docs" target="#blank" class="cta-link dark">
+                        <h2>
+                            Click here to view the API documentation
+                        </h2>
+                    </a>
+                    <a href="https://github.com/ChrisBriant/Identity-Broker" target="#blank" class="cta-link dark">
+                        <h2>
+                            Click here to view the Git Hub code
+                        </h2>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
         <section>
-            <div class="panel">
-                <h2>Real World</h2>
-                <p>Include details of how these projects can be used in the real world.</p>
+            <div class="panel panel-30-70">
+                <div class="left">
+                    <h2>Real World</h2>
+                    <img src="/assets/world.jpg" alt="Try It Glowing Text">
+                </div>
+                <div class="right">
+                    <h2>Identity Broker</h2>
+                    <p>
+                        In a real-world implementation, an identity broker would provide users with a choice of identity providers (IDPs) 
+                        for authentication. Once the user signs in via their selected IDP, the broker would establish a trusted session and 
+                        grant access to the application (service provider) based on the authenticated identity and associated claims.
+                    </p>
+                    <h2>AI Certification</h2>
+                    <p>
+                        In a real-world scenario, the AI component would act as an intermediate step in the access review process, 
+                        assisting in role and group recommendations. These recommendations would then be submitted to a manager for 
+                        final approval, ensuring a human-in-the-loop validation step before any role assignments are applied.
+                    </p>
+                    <h2>Device Based Authentication</h2>
+                    <p>
+                        In a real-world deployment, additional authentication methods would be supported to provide users with multiple 
+                        verification options and recovery paths. This would include the ability to re-register a mobile device, ensuring 
+                        continuity of access while maintaining secure device binding and authentication integrity.
+                    </p>
+                </div>
             </div>
         </section>
     </main>

@@ -40,57 +40,127 @@
         <section id="interview">
             <div class="panel panel-30-70">
                 <div class="left">
+                    <h2>Interview Me</h2>
                     <img src="./assets/me.jpg" alt="My Photo" />
                 </div>
                 <div class="right">
+                    <p>Ask a Question</p>
 
+                    <textarea id="question" rows="4" cols="50" placeholder="Enter your question..."></textarea>
+
+                    <button id="ask-ai-btn" onclick="sendRequest()" class="btn">Submit</button>
+
+                    <p>Response:</p>
+                    <div class="response-box">
+                        <div id="output" class="output"></div>
+                    </div>
                 </div>
                 
             </div>
         </section>
 
+        <section id="skills">
+            <div class="panel panel-30-70">
+                <div class="left">
+                    <h2>Skills</h2>
+                    <div class="panel-image">
+                        <img src="./assets/skill_star.jpg" alt="Skills" />
+                    </div>
+                </div>
+                <div class="right">
+                    <p>
+                        The following skills represent the technologies and concepts used across my projects, with a focus on authentication, identity management, and scalable application design. This includes work across backend services, frontend development, and deployment infrastructure.
+                    </p>
+                    <ul>
+                    <li>Python</li>
+                    <li>JavaScript</li>
+                    <li>Dart</li>
+
+                    <li>FastAPI</li>
+                    <li>React</li>
+                    <li>Flutter</li>
+
+                    <li>OpenAI API integration</li>
+                    <li>Prompt engineering</li>
+
+                    <li>Authentication &amp; identity systems</li>
+                    <li>Device-based authentication</li>
+                    <li>Challenge–response authentication</li>
+                    <li>Public / private key cryptography</li>
+                    <li>Identity federation (multi-IDP)</li>
+
+                    <li>REST API design</li>
+                    <li>Backend service architecture</li>
+
+                    <li>Client-side routing (SPA)</li>
+                    <li>UI layout &amp; responsive design</li>
+
+                    <li>Secure storage (mobile)</li>
+                    <li>Cross-platform mobile development</li>
+
+                    <li>NGINX configuration</li>
+                    <li>Reverse proxy setup</li>
+                    <li>Linux server management</li>
+                    <li>Domain &amp; HTTPS configuration</li>
+                    </ul>
+                </div>
+            </div>
+
+        </section>
+
     </main>
-    <h1>Ask a Question</h1>
 
-    <textarea id="question" rows="4" cols="50" placeholder="Enter your question..."></textarea>
-    <br><br>
-
-    <button onclick="sendRequest()">Submit</button>
-
-    <h2>Response:</h2>
-    <div id="output"></div>
 
     <script>
         async function sendRequest() {
             const question = document.getElementById("question").value;
+            const askAiBtn = document.querySelector("#ask-ai-btn");
 
-            try {
-                const res = await fetch("http://localhost:8000/ask-interview-question", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        question: question
-                    })
-                });
+            //Set the button to loading indicator
+            askAiBtn.classList.add("loading");
 
-                if (!res.ok) {
-                    throw new Error("Request failed");
+            //Set the output component
+            const output = document.getElementById("output");
+            output.style.whiteSpace = "pre-line";
+            output.textContent = "Loading...";
+
+            setTimeout(async () => {
+
+
+                try {
+                    const res = await fetch("http://localhost:8000/ask-interview-question", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            question: question
+                        })
+                    });
+
+                    if (!res.ok) {
+                        throw new Error("Request failed");
+                        output.textContent = "An error occurred";
+                    }
+
+                    const data = await res.json();
+
+                    
+
+                    // ✅ SIMPLE + SAFE rendering
+                    //output.style.whiteSpace = "pre-line";
+                    output.textContent = data;
+
+                    //Update the loading indicator
+                    askAiBtn.classList.remove("loading");
+
+                } catch (err) {
+                    console.error(err);
+                    document.getElementById("output").textContent = "Error calling API";
                 }
+            },3000)
 
-                const data = await res.json();
 
-                const output = document.getElementById("output");
-
-                // ✅ SIMPLE + SAFE rendering
-                output.style.whiteSpace = "pre-line";
-                output.textContent = data;
-
-            } catch (err) {
-                console.error(err);
-                document.getElementById("output").textContent = "Error calling API";
-            }
         }
     </script>
 
