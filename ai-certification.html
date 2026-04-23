@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>A-IAM - AI Certification</title>
+</head>
+<body>
+    <header class="project-page">
+        <div class="hero-section">
+            <div class="nav">
+                <a href="/"><p>A-IAM</p></a>
+                <nav>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="/topics">Topics</a></li>
+                        <li><a href="/topics">Projects</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="page-nav">
+                <div class="banner">
+                    <!-- <img src="./assets/hero-image.jpg" alt="A-IAM Main Graphic"> -->
+                </div>
+                <div class="nav">
+                    <h1>AI Certification</h1>
+                    <ul>
+                        <li><a href="#about" >About</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#how-it-works" >How it Works</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#architecture" >Architecture</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#backend" >Backend</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#frontend" >Frontend</a></li>
+                    </ul>
+                </div>
+            </div>
+
+    </header>
+    <main>
+        <section id="about">
+            <div class="panel panel-30-70">
+                <div class="left">
+                    <h2>About</h2>
+                    <div class="img-container">
+                        <img src="./assets/ai_cert.jpg" alt="AI Based Certification" />
+                    </div>
+                </div>
+                <div class="right content">
+                    <p>
+                        AI Certification is a system designed to automate the assignment of user access within 
+                        an organisation by using artificial intelligence to determine the appropriate roles and 
+                        permissions for each individual.
+                    </p>
+                    <p>
+                        In identity and access management, <strong>certification</strong> refers to the process of reviewing and validating 
+                        a user’s access rights to ensure they align with their job responsibilities. This is typically carried out 
+                        during onboarding or periodic access reviews, where users are granted access to systems and resources based 
+                        on their role.
+                    </p>
+                    <p>
+                        However, traditional certification processes rely heavily on human approval. In practice, these approvals are often 
+                        rushed or treated as routine administrative tasks. Authorisers may lack the time, context, or incentive to thoroughly 
+                        evaluate each request, leading to over-provisioning of access and increased security risk.
+                    </p>
+                    <p>
+                        AI Certification addresses this problem by analysing a user’s responsibilities and context to make informed, consistent 
+                        access decisions. Instead of relying on manual judgement, the system evaluates inputs and recommends or assigns roles based on 
+                        patterns and defined access models. This results in more accurate access control, reduced administrative overhead, and improved 
+                        security posture.
+                    </p>
+                    <p>
+                        This project demonstrates a proof of concept where role assignments are determined using AI.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="try-it">
+            <div class="panel panel-30-70 action-panel">
+                <div class="left">
+                    <img src="/assets/try-it-2.png" alt="Try It Glowing Text">
+                </div>
+                <div class="right">
+                    <a href="https://aiam-certification.chrisbriant.uk/" target="_blank" class="cta-link dark">
+                        <h1>Click Here to Open the Front End App</h1>
+                    </a>
+                    <a href="https://aiam-api.chrisbriant.uk/docs" target="_blank">
+                        <h2>Click here to view the REST API documentation.</h2>
+                    </a>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="how-it-works">
+            <div class="panel vert">
+                <h2>How it Works</h2>
+                <p>
+                    A policy document containing the organisational rules for role assignment is defined and uploaded 
+                    to a prompt in OpenAI. The OpenAI prompt is set to ask the role assignments to be generated based on a 
+                    set of questions that the user has answered.
+                </p>
+                <p>The set of role assignments is returned by the AI prompt.</p>
+                <h3>The Policy Document</h3>
+                <p>This is the uploaded policy.</p>
+                <div class="embedded-document">
+                    <h2>AIAM</h2>
+
+                    <p>AI Access Governance Architect – Designs AI models to dynamically manage user permissions, ensuring secure access while adapting to organizational changes.</p>
+                    <p>Behavioral Identity Analyst – Monitors and analyzes user behavior patterns using AI to detect anomalous access requests and potential security threats.</p>
+                    <p>Adaptive Authentication Engineer – Develops AI-based multi-factor authentication systems that adjust authentication requirements in real time based on risk scoring.</p>
+                    <p>Identity Lifecycle Automation Specialist – Implements AI workflows to automate user onboarding, role changes, and offboarding while maintaining compliance.</p>
+                    <p>Predictive Security Operations Lead – Uses AI to predict access risks, recommend policy adjustments, and proactively prevent identity-related breaches.</p>
+                    <p>AI Identity Systems Administrator – Manages and maintains the AI-driven IAM infrastructure, configures system-level settings, and ensures overall system uptime.</p>
+                    <p>AI Access Administrator – Manages user permissions, group memberships, and access policies. Approves requests and monitors privilege changes based on AI-driven recommendations.</p>
+                    <p>AI Access Management Director – Oversees the organization’s AI identity and access initiatives, sets strategic security policies, manages cross-functional teams, and ensures regulatory compliance.</p>
+
+                    <h3>Roles</h3>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Role</th>
+                                <th>Permission Set</th>
+                                <th>Tier</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>platform_administrator</td>
+                                <td>Full system access: manage users, groups, roles, policies, configurations, and settings.</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>user_administrator</td>
+                                <td>Create, update, deactivate users; manage user attributes.</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>groups_administrator</td>
+                                <td>Create, modify, delete groups; assign users to groups.</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>policy_administrator</td>
+                                <td>Create, modify, delete policies; full policy management.</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>policy_contributor</td>
+                                <td>Modify existing policies only; cannot create or delete.</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>role_assignment_manager</td>
+                                <td>Assign or remove roles to users/groups; cannot create roles.</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>access_request_approver</td>
+                                <td>Approve or reject access requests for users or groups.</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>report_contributor</td>
+                                <td>Create or schedule reports; cannot change system configuration.</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>policy_reader</td>
+                                <td>Read-only access to policies; cannot modify.</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>directory_reader</td>
+                                <td>Read-only access to users and groups; cannot modify.</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>access_auditor</td>
+                                <td>View access assignments and audit logs; compliance monitoring.</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>security_analyst</td>
+                                <td>View access trends, detect anomalous behavior, review security alerts.</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>compliance_officer</td>
+                                <td>Read-only access to logs, policies, users/groups for auditing purposes.</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>report_reader</td>
+                                <td>View reports on user access, group membership, and policy usage.</td>
+                                <td>3</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2>Interview Questions</h2>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Question ID</th>
+                                <th>Question Text</th>
+                                <th>Notes / Guidance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Q1</td>
+                                <td>Please describe the tasks you perform related to managing users, groups, or access to systems.</td>
+                                <td>Look for mentions of creating users, assigning roles, or managing groups.</td>
+                            </tr>
+                            <tr>
+                                <td>Q2</td>
+                                <td>Which systems, applications, or resources do you need to configure, monitor, or manage?</td>
+                                <td>Helps determine scope (team vs org-wide).</td>
+                            </tr>
+                            <tr>
+                                <td>Q3</td>
+                                <td>Which types of access or permissions are you responsible for granting, approving, or reviewing?</td>
+                                <td>Highlights operational/admin roles like approver or policy contributor.</td>
+                            </tr>
+                            <tr>
+                                <td>Q4</td>
+                                <td>How often do you modify access rights, create users, or review logs?</td>
+                                <td>Frequency can indicate tier (daily = operational/admin, rare = contributor or read-only).</td>
+                            </tr>
+                            <tr>
+                                <td>Q5</td>
+                                <td>Do you make decisions that affect security policies, compliance, or organizational access?</td>
+                                <td>Signals higher-tier roles like platform_admin or policy_admin.</td>
+                            </tr>
+                            <tr>
+                                <td>Q6</td>
+                                <td>How broad is your responsibility: team-level, department-level, or organization-wide?</td>
+                                <td>Scope indicator for tier assignment.</td>
+                            </tr>
+                            <tr>
+                                <td>Q7</td>
+                                <td>Do you create, update, or review access policies? If so, how frequently?</td>
+                                <td>Helps distinguish between policy_contributor, policy_admin, or policy_reader.</td>
+                            </tr>
+                            <tr>
+                                <td>Q8</td>
+                                <td>Do you monitor or analyze user activity, security logs, or access reports?</td>
+                                <td>Identifies security analyst, compliance_officer, or auditor roles.</td>
+                            </tr>
+                            <tr>
+                                <td>Q9</td>
+                                <td>Do you generate reports on user access, group membership, or policy usage?</td>
+                                <td>Maps to report_reader or report_contributor.</td>
+                            </tr>
+                            <tr>
+                                <td>Q10</td>
+                                <td>Are there any tasks not mentioned above that involve managing access, permissions, or compliance in your role?</td>
+                                <td>Catch-all for anything missed, useful for AI nuance.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="architecture">
+            <div class="panel panel-30-70">
+                <div class="left">
+                    <h2>Architecture</h2>
+                    <div class="img-container">
+                        <img src="./assets/architecture.jpg" alt="Architecture" />
+                    </div>
+                </div>
+                <div class="right content">
+
+
+
+                    <h3>Backend Server</h3>
+                    <p>The backend server hosts a REST API which is developed using the Python FAST API Framework.</p>
+                    <p>The REST API has an endpoint which will accept an array of questions / answers and then sends these to the prompt to generate the 
+                        list of roles. The AI reviews the access request based on the users responses and generates a list of role assignments.</p>
+                    <p><a href="https://aiam-api.chrisbriant.uk/docs" target="_blank">Click here to view the REST API documentation.</a></p>
+                    <h3>Web App</h3>
+                    <p>The user interacts with a web based frontend which I have created using the <string>React</string> framework, written in JavaScript.</p>
+                    <p>It will prompt the user with a series of questions that they answer and then press submit.</p>
+                    <p>For demonstration purposes the list of role assignments is displayed on the page. In a real world situation this information would 
+                        not be exposed to the user. It would be stored at the backend and sent to a line manager for approval in some form.
+                    </p>
+                    <p>In the real world you'd have multiple stages of approval where AI makes the judgement and a human (line manager) approves 
+                        the AI's selection.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="backend">
+            <div class="panel panel-30-70">
+                <div class="left">
+                    <h2>Backend</h2>
+                    <div class="img-container">
+                        <img src="./assets/back_door.jpg" alt="Cryptography" />
+                    </div>
+                </div>
+                <div class="right">
+                    <h3>
+                        Prompt
+                    </h3>
+                    <p>This is the prompt set up in OpenAI</p>
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+You are an IAM Analyst for a technology company performing an access review.
+
+The user is submitting responses to a questionnaire which is designed for assesmenet of the role assignments they are given. You are to assess the responses they have made to each of the questions and output a list of the roles they will be assigned to.
+
+User Questions and Responses:
+{{user_question_answers}}
+
+You must make the judgment based on the rules given in the uploaded document and the role assignment set must only include the roles defined in the uploaded document.
+
+Requirements: 
+- ONLY include roles defined in the document 
+- DO NOT invent new roles
+- For each assigned role, provide a justification as to why the role has been selected
+- Make the judgement based on least privilege
+- Do not include markdown 
+- Output valid JSON only
+
+Return ONLY valid JSON array in the following format: 
+
+[
+{ 
+"role_name": "string", 
+"justification" : "string" 
+},
+]
+
+                            </code>
+                        </pre>
+
+                    </div>
+                    <h3>The get-groups Endpoint</h3>
+                    <p>The backend serves the /get-groups endpoint. The code below calls the <strong>get_role_assignments</strong>
+                     function which makes the call to the prompt that is hosted in OpenAI.</p> 
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+@app.post("/get-groups", response_model = AiResponseSchema)
+async def get_groups(user_answers : UserAnswerListSchema, api_key: str = Depends(get_api_key)):
+    question_data = [
+        {
+            "id": item.id,
+            "text": item.text,
+            "answer": item.answer
+        }
+        for item in user_answers.user_answers
+    ]
+    ai_response = get_role_assignments(question_data)
+    #ai_response = [{'role_name': 'platform_administrator', 'justification': 'Selected because the user describes organization-wide administration of the central identity platform, full user lifecycle management, group oversight, role assignment, policy creation and enforcement, approval of privileged and administrative access, daily access operations, and management of role definitions. In the documented role set, platform_administrator is the only defined role with full system access to manage users, groups, roles, policies, configurations, and settings. Narrower roles such as user_administrator, groups_administrator, policy_administrator, role_assignment_manager, and access_request_approver would still not cover role definition management or full platform administration end-to-end. Assigning this single role is therefore the least-privilege fit available within the defined roles for the responsibilities stated. '}]
+    try:
+        role_list = AiResponseSchema.model_validate(ai_response)
+    except Exception as e:
+        print("Bad response from AI", e)
+        raise HTTPException(status_code=400,detail="Unable to generate role data")
+
+    return role_list
+
+                            </code>
+                        </pre>
+
+                    </div>
+                    <p>Click <a href="https://github.com/ChrisBriant/fastapi-ai-access-review">here</a> to view the full code.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="frontend">
+            <div class="panel panel-30-70">
+                <div class="left">
+                    <h2>Frontend</h2>
+                    <div class="img-container">
+                        <img src="./assets/ai_certification_react_screenshot_1.jpg" alt="Access Review Screen" />
+                    </div>
+                    <div class="img-container">
+                        <img src="./assets/ai_certification_react_screenshot_2.jpg" alt="Access Review Results Screen" />
+                    </div>
+                </div>
+                <div class="right content">
+                    <p>
+                        The frontend is build using <strong>React</strong>. The user presses the start button to start the assessment 
+                        and is then presented with a series of questions that they need to answer.
+                    </p>
+                    <p>
+                        When they click on the submit button it will send their answers to the backend which will return a list of the 
+                        roles the user is to be assigned to. For demonstration purposes this is displayed on the screen.
+                    </p>
+                    <p>
+                        The React app has three page components.
+                    </p>
+                    <ul>
+                        <li>HomePage - for initiating the access review</li>
+                        <li>InterviewPage - for asking the user questions and submitting the response</li>
+                        <li>ResultsPage - for displaying the determined list of role assignments</li>
+                    </ul>
+                    <p>
+                        This is the code for the InterviewPage which drives the access review. Click <a href="https://github.com/ChrisBriant/react-ai-certification">here</a>
+                         to view the full code on GitHub.
+                    </p>
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+You are an IAM Analyst for a technology company performing an access review.
+
+The user is submitting responses to a questionnaire which is designed for assesmenet of the role assignments they are given. You are to assess the responses they have made to each of the questions and output a list of the roles they will be assigned to.
+
+User Questions and Responses:
+{{user_question_answers}}
+
+You must make the judgment based on the rules given in the uploaded document and the role assignment set must only include the roles defined in the uploaded document.
+
+Requirements: 
+- ONLY include roles defined in the document 
+- DO NOT invent new roles
+- For each assigned role, provide a justification as to why the role has been selected
+- Make the judgement based on least privilege
+- Do not include markdown 
+- Output valid JSON only
+
+Return ONLY valid JSON array in the following format: 
+
+[
+{ 
+"role_name": "string", 
+"justification" : "string" 
+},
+]
+
+                            </code>
+                        </pre>
+
+                    </div>
+                    <h3>The get-groups Endpoint</h3>
+                    <p>The backend serves the /get-groups endpoint. The code below calls the <strong>get_role_assignments</strong>
+                     function which makes the call to the prompt that is hosted in OpenAI.</p> 
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+import { useState } from "react";
+import QuestionAnswer from "../components/QuestionAnswer";
+import { getGroups } from "../network/network";
+import LoadingWidget from "../components/LoadingWidget";
+
+const InterviewPage = ({setPageName, questions, setResults}) => {
+    const [selectedQuestion,setSelectedQuestion] = useState(0);
+    const [questionAnswers, setQuestionAnswers] = useState([...questions]);
+    const [finish, setFinish] = useState(false); 
+    const [loading,setLoading] = useState(false);
+
+    const setSelectedQuestionAndAnswer = (answer) => {
+        const nextQuestion = selectedQuestion + 1;
+        if(nextQuestion === questions.length) {
+            setFinish(true);
+        }
+        const newQuestionAnswers = [...questionAnswers];
+        newQuestionAnswers[selectedQuestion].answer = answer;
+        setQuestionAnswers(newQuestionAnswers);
+        setSelectedQuestion(nextQuestion);
+    }  
+
+    const onComplete = async () => {
+        setLoading(true);
+
+        const payload = {
+            user_answers : questionAnswers
+        }
+        //send the data to the back end
+        try {
+            const res = await getGroups(payload);
+            setResults(res);
+            setPageName("results");
+        } catch(err) {
+            console.error("Error getting certification results", err)
+        }
+
+        setTimeout(() => {
+            setLoading(false);
+        },3000);
+
+    }
+
+    return(
+        &lt;div &gt;
+            &lt;div className="panel"&gt;
+                &lt;h2&gt;Access Assessment Questions&lt;/h2&gt;
+                &lt;h3&gt;Please answer a few questions to help us determine the appropriate access for your role.&lt;/h3&gt;
+            &lt;/div&gt;
+            &lt;&gt;
+            {
+                loading
+                ? &lt;LoadingWidget /&gt;
+                : &lt;QuestionAnswer 
+                    question={questions[selectedQuestion]} 
+                    setSelectedQuestionAndAnswer={setSelectedQuestionAndAnswer} 
+                    finish={finish}
+                    onComplete={onComplete}
+                /&gt;
+            }
+            &lt;/&gt;
+        &lt;/div&gt;
+    )
+}
+
+export default InterviewPage;
+
+                            </code>
+                        </pre>
+
+                    </div>
+                </div>
+            </div>    
+        </section>
+
+
+    </main>
+    
+</body>
+</html>

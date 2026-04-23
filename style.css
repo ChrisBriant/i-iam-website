@@ -30,7 +30,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    outline: 1px solid red;
+    /* outline: 1px solid red; */
 }
 
 html, body {
@@ -56,6 +56,16 @@ textarea {
     border-radius: 10px;
     padding: 6px;
     resize: none;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table th,
+table td {
+    padding: 6px;
 }
 
 .hidden {
@@ -373,7 +383,28 @@ main .panel {
     margin: auto;
 }
 
+.panel .embedded-document {
+    background-color: var(--panel-alt-background-color);
+    color: var(--panel-alt-text-color);
+    border-radius: 10px;
+    padding: 10px;
+}
 
+.panel .embedded-document h2,
+.panel .embedded-document h3 {
+    color: var(--panel-alt-text-color);
+    font-weight: bold;
+}
+
+
+.panel .embedded-document table td,
+.panel .embedded-document table th {
+    border: var(--panel-alt-text-color) solid 1px;
+}
+
+.panel .img-container {
+    margin: 10px 0;
+}
 
 .left {
     display: flex;
