@@ -24,6 +24,13 @@
     --cta-link-dark : #fff;
 
     --muted-text-color : #5c5c5c;
+
+    /* logo text colors  */
+    --aiam-letter-1 : #000;
+    --aiam-letter-2 : #03bef5;
+    --aiam-letter-3 : #01648b;
+    --aiam-letter-4 : #0082ae;
+
 }
 
 * {
@@ -31,6 +38,10 @@
     margin: 0;
     box-sizing: border-box;
     /* outline: 1px solid red; */
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 html, body {
@@ -89,6 +100,10 @@ table td {
 
 #profile-page .nav p {
     font-size: 1rem;
+}
+
+#profile-page .nav p:first-child {
+    font-size: 1.5rem;
 }
 
 .nav ul {
@@ -330,6 +345,7 @@ main .panel {
     margin: 10px 0;
 }
 
+.panel h3,
 .panel h2 {
     color: var(--muted-text-color);
 }
@@ -380,7 +396,7 @@ main .panel {
 
 .panel .panel-image {
     max-width: 400px;
-    margin: auto;
+    /* margin: auto;  */
 }
 
 .panel .embedded-document {
@@ -409,7 +425,7 @@ main .panel {
 .left {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     padding: 10px;
     text-align: center;
 }
@@ -479,8 +495,42 @@ main .panel {
         align-items: center;
     }
 
+    header.project-page .page-nav .banner {
+        background-image: url('./assets/id_pattern.jpg');
+    }
+
     header .hero-section {
         width: 100%;
+    }
+
+    header .banner {
+        width: 100%;
+    }
+
+    header h1 {
+        line-height: 1;
+    }
+
+    header .banner h1 {
+        background-color: #00000012;
+        font-size: 4rem;
+        text-align: center;
+    }
+
+    header .banner h1 span:first-child {
+        color: var(--aiam-letter-1);
+    }
+
+    header .banner h1 span:nth-child(2) {
+        color: var(--aiam-letter-2);
+    }
+
+    header .banner h1 span:nth-child(3) {
+        color: var(--aiam-letter-4)
+    }    
+
+    header .banner h1 span:nth-child(4) {
+        color: var(--aiam-letter-4);
     }
 
     .card {
@@ -494,6 +544,7 @@ main .panel {
     .card .title {
         width: 20%;
         clip-path: none;
+        font-weight: bold;
     }
 
     .card-image {
@@ -509,6 +560,50 @@ main .panel {
     }
 }
 
+
+@media (max-width : 700px) {
+    .card {
+        flex-direction: column;
+    }
+ 
+    .card .title,
+    .card .card-image,
+    .card .body,
+    .card .title {
+        width: 100%;
+    }
+}
+
+@media (max-width: 650px) {
+    header.project-page .page-nav {
+        display: flex;
+        flex-direction: column;
+    }
+
+    header.project-page .page-nav .banner {
+        height: 300px;
+    }
+
+    .panel h2 {
+        text-align: center;
+    }
+
+    .panel .left {
+        align-items: center;
+    }
+
+    .panel-70-30, .panel-40-60, .panel-30-70 {
+        flex-direction: column;
+        
+    }
+
+    .panel-70-30 .left, .panel-40-60 .left, .panel-30-70 .left,
+    .panel-70-30 .right, .panel-40-60 .right, .panel-30-70 .right {
+        width: 100%;
+    }
+
+
+}
 
 /* FOOTER STYLES  */
 
