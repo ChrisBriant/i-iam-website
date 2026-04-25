@@ -4,30 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>A-IAM</title>
+    <title>Projects</title>
 </head>
 <body>
-    <header>
+    <header class="project-page">
         <div class="hero-section">
             <div class="nav">
-                <p>A-IAM</p>
+                <a href="/"><p>A-IAM</p></a>
                 <nav>
                     <ul>
-                        <li><a href="/profile.html" traget="_blank">About Me</a></li>
+                        <li><a href="/profile.html">About Me</a></li>
                         <li><a href="./projects.html">Projects</a></li>
                     </ul>
                 </nav>
             </div>
-            <div class="banner">
-                <img src="./assets/hero-image.jpg" alt="A-IAM Main Graphic">
+            <div class="page-nav">
+                <div class="banner">
+                    <h1 class="hidden">
+                        <span>A</span>
+                        <span>I</span>
+                        <span>A</span>
+                        <span>M</span>
+                    </h1>
+                    <!-- <img src="./assets/hero-image.jpg" alt="A-IAM Main Graphic"> -->
+                </div>
+                <div class="nav">
+                    <h1>Projects</h1>
+                    <ul>
+                        <li><a href="#id-broker" >Identity Broker</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#ai-certification" >AI Certification</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#device-auth" >Device Authnetication</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="tagline">
-                <h1>Where Artificial Intelligence Meets Identity Engineering</h1>
-            </div>
-            <div class="cta">
-                <h2>Explore My Work</h2>
+
+    </header>
+    <main>
+        <section id="projects">
                 <div class="project-grid">
-                    <div class="card">
+                    <div id="id-broker" class="card">
                         <div class="title">
                             Identity Broker
                         </div>
@@ -42,7 +61,7 @@
                             <!-- <a href="./idbroker.html" class="btn">See More</a> -->
                         </div>
                     </div>
-                    <div class="card">
+                    <div id="#ai-certification" class="card">
                         <div class="title">
                             AI Based Certification
                         </div>
@@ -57,7 +76,7 @@
                             <!-- <a href="" class="btn">See More</a> -->
                         </div>
                     </div>
-                    <div class="card">
+                    <div id="device-auth" class="card">
                         <div class="title">
                             Device Based Authentication
                         </div>
@@ -73,88 +92,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </header>
-    <main>
-        <section id="about">
-            <div class="panel">
-                <h2>About</h2>
-                <p>This site showcases a collection of projects focused on authentication, identity management, and modern application development. It highlights practical implementations such as device-based authentication, identity brokering across multiple providers, and AI-assisted access reviews for role assignment. Each project reflects a hands-on approach to solving real-world security and scalability challenges using technologies across the full stack, from frontend interfaces to backend services and infrastructure. The aim of this portfolio is to demonstrate both technical capability and the ability to design, build, and deploy complete, production-ready solutions.</p>
-            </div>
-        </section>
-
-        <section id="try-it">
-            <div class="panel panel-30-70 action-panel">
-                <div class="left">
-                    <img src="/assets/try-it-2.png" alt="Try It Glowing Text">
-                </div>
-                <div class="right">
-                    <div class="img-text-group">
-                        <div class="img-container">
-                            <img src="./assets/id_card_wht.svg" alt="ID Card Icon">
-                        </div>
-                        <div class="link">
-                            <a href="https://id-broker.chrisbriant.uk" target="#blank" class="cta-link dark">
-                                <h1>Identity Broker</h1>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="img-text-group">
-                        <div class="img-container">
-                            <img src="./assets/cert_wht.svg" alt="Certificate Icon">
-                        </div>
-                        <div class="link">
-                            <a href="/ai-certification.html" target="#blank" class="cta-link dark">
-                                <h1>AI Certification</h1>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="img-text-group">
-                        <div class="img-container">
-                            <img src="./assets/key_wht.svg" alt="Key Icon">
-                        </div>
-                        <div class="link">
-                            <a href="https://pairauth.chrisbriant.uk" target="#blank" class="cta-link dark">
-                                <h1>Pair Auth Authenticator</h1>
-                            </a>
-                        </div>
-                    </div>
-
-    
-                </div>
-            </div>
         </section>
 
 
-        <section>
-            <div class="panel panel-30-70">
-                <div class="left">
-                    <h2>Real World</h2>
-                    <img src="/assets/world.jpg" alt="Try It Glowing Text">
-                </div>
-                <div class="right">
-                    <h2>Identity Broker</h2>
-                    <p>
-                        In a real-world implementation, an identity broker would provide users with a choice of identity providers (IDPs) 
-                        for authentication. Once the user signs in via their selected IDP, the broker would establish a trusted session and 
-                        grant access to the application (service provider) based on the authenticated identity and associated claims.
-                    </p>
-                    <h2>AI Certification</h2>
-                    <p>
-                        In a real-world scenario, the AI component would act as an intermediate step in the access review process, 
-                        assisting in role and group recommendations. These recommendations would then be submitted to a manager for 
-                        final approval, ensuring a human-in-the-loop validation step before any role assignments are applied.
-                    </p>
-                    <h2>Device Based Authentication</h2>
-                    <p>
-                        In a real-world deployment, additional authentication methods would be supported to provide users with multiple 
-                        verification options and recovery paths. This would include the ability to re-register a mobile device, ensuring 
-                        continuity of access while maintaining secure device binding and authentication integrity.
-                    </p>
-                </div>
-            </div>
-        </section>
+
+
+
     </main>
 
     <footer>
