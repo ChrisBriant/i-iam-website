@@ -522,7 +522,7 @@ main .panel {
 
 /* Projects page  */
 #projects .card {
-        width: 96%;
+        width: 1280px;
         margin: 0 10px;
         display: flex;
         flex-direction: row;
@@ -547,6 +547,8 @@ main .panel {
 /* MEDIA QUERIES  */
 
 @media (max-width: 1280px) {
+
+
     header .project-grid {
         display: flex;
         flex-direction: column;
@@ -593,6 +595,10 @@ main .panel {
 
     header .banner h1 span:nth-child(4) {
         color: var(--aiam-letter-4);
+    }
+
+    #projects .card {
+        width: 96%;
     }
 
     .card {
