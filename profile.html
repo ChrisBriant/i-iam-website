@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>About Me</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" href="/assets/favicon.ico">
 </head>
 <body id="profile-page">
     <header class="project-page">
@@ -166,7 +168,7 @@
 
 
                 try {
-                    const res = await fetch("http://localhost:8000/ask-interview-question", {
+                    const res = await fetch("https://aiam-api.chrisbriant.uk/ask-interview-question", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"

@@ -23,7 +23,13 @@
     /* links  */
     --cta-link-dark : #fff;
 
-    --muted-text-color : #5c5c5c;
+    --page-link : #2563eb;
+    --page-link-hover : #1d4ed8; 
+    --page-link-visited : #7c3aed;
+    --page-link-active : #1e40af;
+
+
+    --muted-text-color : #969695;
 
     /* logo text colors  */
     --aiam-letter-1 : #000;
@@ -321,18 +327,24 @@ main .panel {
 
 /* MAIN PAGE STYLES  */
 
-.panel {
+#try-it .panel {
     max-width: 1260px;
     margin: 10px auto;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.panel a ,
-.panel a:visited,
-.panel a:active
+#try-it .panel a ,
+#try-it .panel a:visited,
+#try-it .panel a:active
 {
     text-decoration: none;
+    color: var(--cta-link-dark);
+    line-height: 1.2;
 
+}
+
+.panel a h1 {
+    text-align: left;
 }
 
 .panel.vert {
@@ -421,6 +433,27 @@ main .panel {
 
 .panel .img-container {
     margin: 10px 0;
+}
+
+/* panel links  */
+.panel a {
+  color: var(--page-link);              /* modern blue */
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.panel a:hover {
+  color: var(--page-link-hover);              /* slightly darker */
+  border-bottom: 1px solid currentColor;
+}
+
+.panel a:visited {
+  color: var(--page-link-visited);              /* subtle purple */
+}
+
+.panel a:active {
+  color: var(--page-link-active);
 }
 
 .left {
@@ -591,6 +624,7 @@ main .panel {
 
 
 @media (max-width : 700px) {
+    .card,
     #projects .card {
         flex-direction: column;
     }
