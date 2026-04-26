@@ -275,9 +275,16 @@ a.btn.loading::before {
 
 /* LAYOUT COMPONENTS  */
 
+main {
+    width: 1280px;
+    margin: auto;
+}
+
 main .panel {
     margin: 10px auto;
     padding: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: 96%;
 }
 
 
@@ -595,6 +602,10 @@ main .panel {
 
     header .banner h1 span:nth-child(4) {
         color: var(--aiam-letter-4);
+    }
+
+    main {
+        width: 100%;
     }
 
     #projects .card {
