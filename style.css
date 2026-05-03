@@ -347,12 +347,13 @@ main .panel {
     text-decoration: none;
     color: var(--cta-link-dark);
     line-height: 1.2;
-
+    border-bottom: none;
+    text-align: center;
 }
 
-.panel a h1 {
+/* .panel a h1 {
     text-align: left;
-}
+} */
 
 .panel.vert {
     padding: 10px;
