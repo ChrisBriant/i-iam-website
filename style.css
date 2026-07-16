@@ -18,6 +18,8 @@
     --panel-alt-background-color : #696969;
     --panel-alt-text-color :#fff;
 
+    --project-status-indicator : #c7c7c7;
+
     --response-box-color : #d8d7c5;
     --response-box-text-color : #000;
     /* links  */
@@ -331,6 +333,27 @@ main .panel {
     align-items: center;
 }
 
+.status-tag {
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 10px;
+    background: var(--project-status-indicator);
+    border-radius: 10px;
+    width: 40%;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.status-tag img {
+    width: 50px;
+    height: 50px;
+}
+
+.status-tag p {
+    font-size: 2rem;
+}
+
 
 /* MAIN PAGE STYLES  */
 
@@ -638,6 +661,13 @@ main .panel {
     .cta {
         width: 100%;
     }
+}
+
+@media (max-width : 900px) {
+    .status-tag {
+        width: 100%;
+    }
+
 }
 
 

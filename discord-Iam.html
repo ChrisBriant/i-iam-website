@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>A-IAM - Discord IAM</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" href="/assets/favicon.ico">
+</head>
+<body>
+    <header class="project-page">
+        <div class="hero-section">
+            <div class="nav">
+                <a href="/"><p>A-IAM</p></a>
+                <nav>
+                    <ul>
+                        <li><a href="/profile.html">About Me</a></li>
+                        <li><a href="./projects.html">Projects</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="tagline">
+                <h1>Discord IAM</h1>
+            </div>
+            <div class="banner">
+                <img src="./assets/joystick.jpg" alt="Discord IAM Graphic">
+            </div>
+    </header>
+    <main>
+        <section id="about">
+            <div class="panel vert">
+                    <h2>About</h2>
+                    <p>
+                       <strong>Discord IAM</strong> is an Identity and Access Management (IAM) platform that demonstrates how enterprise identity management concepts can be applied to a modern cloud application using Discord as the identity source. The platform synchronises users and roles from a Discord server into a local database, providing a centralised service for identity lifecycle management, role-based access control (RBAC), and administrative workflows. Rather than functioning solely as a Discord bot, the application operates as an independent IAM service that maintains its own identity store while remaining synchronised with Discord.
+                    </p>
+                    <p>
+                        The platform encompasses user and role reconciliation, Joiner, Mover and Leaver (JML) lifecycle management, Privileged Access Management (PAM), and auditing capabilities to support the administration of user identities and access rights. A web-based administration portal provides visibility and control over identities, permissions, and access requests, while a user portal supports authentication using Discord as the identity provider. Built using Python, FastAPI, SQLAlchemy, React, PostgreSQL, and the Discord API, the project showcases the core principles of enterprise identity governance, provisioning, authentication, and access management within a modern full-stack application.
+                    </p>
+            </div>
+        </section>
+
+        <section id="phases">
+            <div class="panel vert">
+                <h2>The Phases</h2>
+                <p>
+                    This project is divided into three phases
+                </p>
+                <ul>
+                    <li>
+                        <p><strong>Phase 1 - </strong><a href="./discord-iam-jml.html">JML Process</a></p>
+                        <p>Manages the Joiner, Mover, and Leaver lifecycle by synchronising users and roles, ensuring identities and access remain accurate.</p>
+                        <div class="status-tag">
+                            <img src="./assets/trophy_icon.svg" alt="complete">
+                            <p>Complete</p>
+                        </div>
+                    </li>
+                    <li>
+                        <p><strong>Phase 2 - </strong><a href="./discord-iam-jml.html">Privileged Access Management</a></p>
+                        <p>Controls elevated access through role management, permissions, and temporary privilege assignment to reduce unnecessary access.</p>
+                        <div class="status-tag">
+                            <img src="./assets/cog_icon.svg" alt="In Progress">
+                            <p>In Progress</p>
+                        </div>
+                    </li>
+                    <li>
+                        <p><strong>Phase 3 - </strong><a href="./discord-iam-jml.html">Identifying Risky Users with AI</a></p>
+                        <p>Uses intelligent analysis to identify unusual activity, potential security risks, and patterns that may require investigation.</p>
+                        <div class="status-tag">
+                            <img src="./assets/bulb_icon.svg" alt="Planned">
+                            <p>Complete</p>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </section>
+
+        <!-- <section id="try-it">
+            <div class="panel panel-30-70 action-panel">
+                <div class="left">
+                    <img src="/assets/try-it-2.png" alt="Try It Glowing Text">
+                </div>
+                <div class="right">
+                    <a href="https://pairauth.chrisbriant.uk" target="#blank" class="cta-link dark">
+                        <h1>Click Here to Open the Front End App</h1>
+                    </a>
+                    <p></p>
+                    <a href="https://play.google.com/apps/internaltest/4701008998637753147" target="#blank" class="cta-link dark">
+                        <h1>Click Here to Download the Android App</h1>
+                    </a>
+                    <a href="https://groups.google.com/g/pearauthtesters" target="#blank" class="cta-link dark">
+                        <p>Request Access</p>
+                    </a>
+                    <a href="https://pairauth-api.chrisbriant.uk/docs" target="#blank" class="cta-link dark">
+                        <h2>
+                            Click here to view the API documentation
+                        </h2>
+                    </a>
+                    <a href="https://github.com/ChrisBriant/FastAPI_pairauth" target="#blank" class="cta-link dark">
+                        <h2>
+                            Click here to view the Git Hub code
+                        </h2>
+                    </a>
+
+                </div>
+            </div>
+
+        </section> -->
+
+
+
+        <section id="architecture">
+            <div class="panel panel-30-70">
+                <div class="left">
+                    <h2>Architecture</h2>
+                    <div class="panel-image">
+                        <img src="./assets/architecture.jpg" alt="Architecture" />
+                    </div>
+                </div>
+                <div class="right content">
+                    <p>
+                        The following infrastructure components are needed for this project.</strong>
+                    </p>
+                    <ol>
+                        <li>Backend Server to handle registration and sign-in flow and issue tokens</li>
+                        <li>Database to store users, devices and tokens</li>
+                        <li>Web based front-end app to handle user interaction</li>
+                        <li>Android app to handle device registration</li>
+                    </ol>
+                    <h3>Backend Server</h3>
+                    <p>The backend server hosts a REST API which is developed using the Python FAST API Framework.</p>
+                    <p>The REST API has endpoints to handle registration (user name / password, device). The backend is responsible for verifying authenticity and redirecting responses to the 
+                        browser app / user's device.</p>
+                    <h3>Database</h3>
+                    <p>For this project a local <strong>Postgres</strong> database is used with the following tables:</p>
+                    <ol>
+                        <li>Users - Stores user credentials</li>
+                        <li>Devices - Stores user devices, including the public key for signing</li>
+                        <li>Tokens - Stores challenge tokens for managing the authentication state</li>
+                    </ol>
+                    <h3>Web App</h3>
+                    <p>This is the front end which I have created using the <string>React</string> framework, written in JavaScript.</p>
+                    <p>The front end is to demonstrate the authentication flow and runs in the browser, allowing the user to register and sign in.</p>
+                    <p>The font end renders the challenge code as a QR code on the screen that the user scans with the camera on their phone.</p>
+                    <h3>Device Authenticator App</h3>
+                    <p>For this demonstration, I have created an Android App using the <strong>Flutter Framework</strong>, written in <strong>Dart</strong>.</p>
+                    <p>The Android App handles the scanning of the QR code and then sends authentication data to the back end for verification.</p>
+                    <p>Once verified the user continues the sign in / registration process from the web app.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="cryptography">
+            <div class="panel panel-30-70">
+                <div class="left">
+                    <h2>Cryptography</h2>
+                    <div class="panel-image">
+                        <img src="./assets/cryptography.jpg" alt="Cryptography" />
+                    </div>
+                </div>
+                <div class="right">
+                    <h3>Asymmetric Cryptography</h3>
+                    <p><strong>Asymmetric Cryptography</strong> is used. This is in the form of a private / public key pair which is 
+                    generated on the device. The private key remains on the device and is used to sign the challenge code to generate a signature</p>
+                    <p>The back end receives the public key, signature and verifies the device authenticity and the user based on the generated challenge code.</p>
+                    <p>The public key is stored in in the devices table so that sign in requests can be verified using the stored public key. The mobile device now only 
+                        needs to send the device ID and signature as the public key can be retrieved from the device record.
+                    </p>
+                    <h3>Hashing</h3>
+                    <p>User passwords are hashed using the <strong>Blowfish Cypher</strong> and a 128-bit salt using <strong>BCrypt</strong>.</p>    
+                </div>
+            </div>
+        </section>
+
+        <section id="device-reg">
+            <div class="panel panel-70-30">
+                <div class="left">
+                    <h2>Registration Flow</h2>
+                    <div class="panel-image">
+                        <img src="./assets/pair-auth-registration-flow.png" alt="Registration Flow" />
+                    </div>
+                </div>
+                <div class="right content">
+                    <p>
+                        The registration flow handles the user signing up to use the application. These are the steps taken.
+                    </p>
+                    <ol>
+                        <li>The user registers with a user name and password</li>
+                        <li>A challenge token is stored by the backend and issued to the user via the browser app</li>
+                        <li>The challenge code is displayed on the user's screen by the web based app they are interacting with</li>
+                        <li>The user scans the challenge code (QR code) with their mobile device</li>
+                        <li>The mobile device opens the app using the deep link encoded and generates a new private key and public key pair</li>
+                        <li>The device signs the challenge code and generates a signature to prove authenticity of the device</li>
+                        <li>The device sends a payload containing the signature, challenge code, public key and optional device name</li>
+                        <li>The backend verifies:</li>
+                            <ol>
+                                <li>The challenge code is valid by looking up the token and retrieving the user record</li>
+                                <li>The device signature using the challenge code and public key</li>
+                            </ol>
+                        <li>Once verified the device is registered in the database and the confirmation sent back to the device</li>
+                        <li>The device stores the device ID for identification when signing up</li>
+                    </ol>
+                </div>
+            </div>    
+        </section>
+
+        <section id="sign-in-flow">
+            <div class="panel panel-70-30">
+                <div class="left">
+                    <h2>Sign-in Authentication Flow</h2>
+                    <div class="panel-image">
+                        <img src="./assets/pairauth-signin-flow.png" alt="Sign In Authentication Flow" />
+                    </div>
+                </div>
+                <div class="right">
+                    <p>The signin flow processes the user signing in using the two authentication factors. These are the steps used.</p>
+                    <ol>
+                        <li>The access and refresh tokens stored in cookies in the browser are verified by the backend server via the session endpoint</li>
+                        <li>If the session is not valid or has expired after validating the access token and running the refresh cycle if required then the sign in process is initiated</li>
+                        <li>The user signs in with their user name and password using the web based front end</li>
+                        <li>The user is verified at the backend which generates a new challenge token for sign in</li>
+                        <li>The backend sets a challenge cookie that is stored in the user's browser</li>
+                        <li>The web application receives the challenge code and presents a QR code for the user to scan using their registered mobile device</li>
+                        <li>The Android app is opened using the deep link encoded in the QR code</li>
+                        <li>The app signs the new challenge using the stored private key and sends a payload containing the registered device ID, the signature and challenge code</li>
+                        <li>The back end looks up the device which has the public key stored</li>
+                        <li>The signature is verified to using the challenge code and public key which confirms authenticity of the device</li>
+                        <li>The token is then validated and if successful then the token is marked as verified in the database</li>
+                        <li>The device receives confirmation and prompts the user to continue</li>
+                        <li>The user presses continue in the web app which redirects them to the complete-sign-in endpoint to complete the sign in process</li>
+                        <li>The endpoint validates the challenge cookie and marks the token as used</li>
+                        <li>If successful a JWT access and refresh token are issued and stored in the browser by setting session cookies</li>
+                        <li>The back end redirects to the web applications home page</li>
+                        <li>The web application reruns the JWT access / refresh cycle by calling the session endpoint at the backend</li>
+                    </ol>
+    
+                </div>
+            </div>     
+        </section>
+
+        <section id="backend-rest-api">
+            <div class="panel panel-40-60">
+                <div class="left">
+                <h2>Backend REST API</h2>                  
+                    <div class="preformatted-text">
+                         <pre>
+│   main.py
+│
+├───data
+│   │   db.py
+│   │   db_setup.py
+│   │   models.py
+│   │   schemas.py
+│
+├───routes
+│   │   auth_routes.py
+│
+├───services
+│   │   auth.py
+│   │   auth_exceptions.py
+│   │   token.py
+│   │   utils.py
+
+                         </pre>   
+                    </div>
+                </div>
+                <div class="right">
+                    <p>The backend hosts the following endpoints:</p>
+                    <ul>
+                        <li><a href="#signup-endpoint"><strong>Sign-Up</strong></a> - To handle the initial sign up</li>
+                        <li><a href="#register-device-endpoint"><strong>Register Device</strong></a> - To handle registration of the mobile device</li>
+                        <li><a href="#device-auth-endpoint"><strong>Device Auth</strong></a> - Handles authenticating the device and called from the Android App</li>
+                        <li><a href="#sign-in"><strong>Sign In</strong></a> - To allow sign in and creation of the challenge token to present as a QR code</li>
+                        <li><a href="#complete-sign-in"><strong>Complete Sign In</strong></a> - To complete the sign-in flow once the device is authenticated</li>
+                        <li><a href="#session-and-refresh"><strong>Session and Refresh Endpoints</strong></a> - These are to get the session and issue tokens</li>
+                        <li><a href="#device-redirect"><strong>Device Redirect</strong></a> - Redirects to the mobile device after the QR code is scanned</li>
+                        <li><a href="#terms-and-conditions"><strong>Terms and Conditions</strong></a> - Allows terms and conditions to be accepted</li>
+                    </ul>
+                    <h3><a href="https://pairauth-api.chrisbriant.uk" target="_blank" >View the API Documentation</a></h3>
+                </div>
+            </div>
+        </section>
+
+        <section id="signup-endpoint">
+            <div class="panel vert">
+                <h2>Sign-up Endpoint</h2>                  
+                    <div class="description">
+                        <p>This will create a new user in the database the challenge code is generated and stored.</p>
+                    </div>
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+@router.post("/signup", response_model =str, status_code=status.HTTP_201_CREATED)
+async def signup_user(user_input : UserInputSchema):
+    """
+        Sign up a User
+        1. Create user — hash password and insert into users table.
+        2. Validate input — ensure username/email is unique and meets requirements.
+        3. Generate device registration challenge — prepare QR / key pair setup.
+    """
+
+    async with SessionLocal() as session:
+        try:
+            user, exists = await User.create_user(session,user_input.user_name,user_input.password)
+        except Exception as e:
+            print("ERROR", e)
+            raise HTTPException(status_code=400,detail="A database error occurred")
+        if exists:
+            #If the user exists allow reregistration if no devices exist
+            #Check registered devices
+            if len(user.devices) > 0:
+                raise HTTPException(status_code=409,detail="User already exists and has registered devices")
+            #Check password matches
+            password_matches = user.verify_password(user_input.password)
+            if not password_matches:
+                raise HTTPException(status_code=401,detail="Password verification failed")
+        if not user:
+            raise HTTPException(status_code=400,detail="User not created")
+
+        #Insert challenge code into database
+        try:
+            challenge_code = await Token.create_challenge(session,user.id,token_type="registration",expires_minutes=180)
+            if not challenge_code:
+                raise HTTPException(status_code=400,detail="Challenge code not created")
+            return challenge_code.token
+        except Exception as e:
+            print("VALUE ERROR", e)
+            raise HTTPException(status_code=400,detail="Unable to set the challenge token")            
+                            </code>
+                        </pre>
+                    </div>
+            </div>     
+        </section>
+
+        <section id="register-device-endpoint">
+            <div class="panel vert">
+                <h2>Device Registration</h2>                  
+                    <div class="description">
+                        <p>The challenge sent from the device is validated and the user associated with the code is retrieved.</p>
+                        <p>The signature sent by the device is verified. If it is valid then the device is stored in the database and the device ID sent back.</p>
+
+
+                    </div>
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+@router.post("/registerdevice", response_model =int, status_code=status.HTTP_201_CREATED)
+async def register_device(reg_input : DeviceRegistrationInput):
+    #1. Lookup challenge code 
+    async with SessionLocal() as session:
+        try:
+            token, user = await Token.validate_challenge(session,reg_input.challenge_code)
+        except TokenUsed as tu:
+            print("TOKEN USED", tu)
+            raise HTTPException(status_code=401,detail="Token is already used")
+        except TokenExpired as te:
+            print("TOKEN EXPIRED", te)
+            raise HTTPException(status_code=401,detail="The token has expired")
+        except TokenNotFound as tnf:
+            print("TOKEN NOT FOUND", tnf)
+            raise HTTPException(status_code=401,detail="Invalid token sent")
+
+        #2. Verify signature
+        if user:
+            signature_verified = verify_signature(reg_input.public_key,reg_input.signature,reg_input.challenge_code)
+            if not signature_verified:
+                raise HTTPException(status_code=401,detail="Signature is not valid")
+
+            #3. Check no device is already registered and Register device - Add device record to DB
+            try:
+                device = await Device.register_device(session,user.id,reg_input.public_key,reg_input.device_name)
+                if not device:
+                    raise HTTPException(status_code=422,detail="Device registration failed")
+                #4. Mark token as used
+                try:
+                    await token.mark_used(session)
+                except Exception as e:
+                    raise HTTPException(status_code=422,detail="Unable to mark token as used")
+            except DeviceAlreadyRegistered as dar:
+                print("DEVICE IS ALREADY REGISTERED", dar)
+                raise HTTPException(status_code=401,detail="Device is already registered")
+            except Exception as e:
+                print("An unknown error occurred")
+                raise HTTPException(status_code=400,detail="An unknown error occurred")
+            
+            return device.id
+                            </code>
+                        </pre>
+                    </div>
+            </div>       
+        </section>
+
+        <section id="device-auth-endpoint">
+            <div class="panel vert">
+                <h2>Device Authentication</h2>                  
+                    <div class="description">
+                        <p>
+                            This endpoint first looks up the device. Then the signature sent by the mobile device is verified.
+                        </p>
+                        <p>
+                            If the signature is valid, the token is marked as used and a 200 response is returned, allowing the device to confirm success.
+                        </p>
+                    </div>
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+@router.post("/deviceauth", response_model =str, status_code=status.HTTP_200_OK)
+async def authenticate_device(device_input : DeviceAuthenticationInputSchema):
+    """
+        Endpoint to authenticate a device
+    """
+    async with SessionLocal() as session:
+        #1.Get the device
+        device = await Device.get_by_id(session,device_input.device_id)
+        if not device:
+            raise HTTPException(status_code=404,detail="Device not registered")
+        #2.Verify the signature against the device public key
+        signature_verified = verify_signature(device.public_key,device_input.signature,device_input.challenge_code)
+        if not signature_verified:
+            print("SIGNATURE NOT VALID")
+            raise HTTPException(status_code=401,detail="Signature not valid")
+        #3. Get the token and user
+        try:
+            token, user = await Token.validate_challenge(session,device_input.challenge_code)
+            await token.mark_verified(session)
+        except TokenUsed as tu:
+            print("TOKEN USED", tu)
+            raise HTTPException(status_code=401,detail="Token is already used")
+        except TokenExpired as te:
+            print("TOKEN EXPIRED", te)
+            raise HTTPException(status_code=401,detail="The token has expired")
+        except TokenNotFound as tnf:
+            print("TOKEN NOT FOUND", tnf)
+            raise HTTPException(status_code=401,detail="Invalid token sent")
+  
+    return "successful"
+                            </code>
+                        </pre>
+                    </div>
+            </div>      
+        </section>
+
+        <section id="sign-in">
+            <div class="panel vert">
+                <h2>Sign In</h2>                  
+                    <div class="description">
+                        <p>
+                            Allows a user to sign in. If the user is registered and the password is valid then a challenge code is created and
+                             sent back to the frontend app to display.
+                        </p>
+                        <p>A cookie is set containing the challenge code which is used to complete the sign up process</p>
+                    </div>
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+@router.post("/signin", response_model =str, status_code=status.HTTP_200_OK)
+async def signin_user(response: Response, user_input : UserInputSchema):
+    """
+        Endpoint to handle user sign in.
+        Takes the user name and password, checks device is registered, validates user password, sets challenge cookie
+    """
+    async with SessionLocal() as session:
+        #1.Check user is registered
+        user = await User.get_by_user_name(session,user_input.user_name)
+        if not user:
+            raise HTTPException(status_code=404,detail="User not found")
+        #Check the devices is more than one which means they have registered
+        device_list = list(user.devices)
+        if not (len(device_list) > 0 and check_active_device_exists(device_list)):
+            raise HTTPException(status_code=404,detail="Could not find active device") 
+        #2. Verify the user password
+        password_valid = user.verify_password(user_input.password)
+        if not password_valid:
+            raise HTTPException(status_code=401,detail="Password authentication failed")
+        #3. Create a challenge for device authentication
+        challenge = await Token.create_challenge(session,user.id,"signin",200)
+        response.set_cookie(
+            key="challenge_token",
+            value=challenge.token,
+            httponly=True,
+            secure=True,          # HTTPS only
+            samesite="none",
+            max_age=CHALLENGE_TOKEN_LIFETIME,
+        )
+        
+
+        return challenge.token
+                            </code>
+                        </pre>
+                    </div>
+            </div>  
+        </section>
+
+        <section id="complete-sign-in">
+            <div class="panel vert">
+                <h2>Complete Sign In</h2>                  
+                    <div class="description">
+                        <p>
+                            This is called by the web app to complete the sign in process once the device has been authenticated.
+                        </p>
+                        <p>
+                            The challenge code from the cookie is validated. If it is valid then the JWT tokens are issued and set within the 
+                            session cookies.
+                        </p>
+                    </div>
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+@router.get("/complete-signin", response_model =str)
+async def complete_signin(request : Request):
+    """
+        Completes the sign in process by verifying the device has been authenticated and issues a JWT pair then redirects.
+    """
+    challenge_cookie = request.cookies.get("challenge_token")
+    async with SessionLocal() as session:
+        try:
+            token, user = await Token.validate_challenge(session,challenge_cookie)
+            if not token.verified:
+                raise HTTPException(status_code=401,detail="Invalid token sent - token is not verified")
+            #Issue JWT and set session and refresh tokens 
+            jwt_token_pair = obtain_jwt_pair(user.id, user.user_name, user.terms_accepted)
+            response = RedirectResponse(
+                url= f"{os.environ.get('CLIENT_REDIRECT')}/home",
+                status_code=302
+            )
+            # Access token cookie
+            response.set_cookie(
+                key="access_token",
+                value=jwt_token_pair["access"],
+                httponly=True,
+                secure=True,          # HTTPS only
+                samesite="none",
+                max_age=ACCESS_TOKEN_LIFETIME,
+            )
+
+            # Refresh token cookie
+            response.set_cookie(
+                key="refresh_token",
+                value=jwt_token_pair["refresh"],
+                httponly=True,
+                secure=True,
+                samesite="none",
+                max_age=REFRESH_TOKEN_LIFETIME, 
+            )
+            # Mark the token as used 
+            try:
+                await token.mark_used(session)
+            except Exception as e:
+                raise HTTPException(status_code=422,detail="Unable to mark token as used")
+        except TokenUsed as tu:
+            print("TOKEN USED", tu)
+            raise HTTPException(status_code=401,detail="Token is already used")
+        except TokenExpired as te:
+            print("TOKEN EXPIRED", te)
+            raise HTTPException(status_code=401,detail="The token has expired")
+        except TokenNotFound as tnf:
+            print("TOKEN NOT FOUND", tnf)
+            raise HTTPException(status_code=401,detail="Invalid token sent")
+
+    return response
+
+                            </code>
+                        </pre>
+                    </div>
+            </div>       
+        </section>
+
+        <section id="session-and-refresh">
+            <div class="panel vert">
+                <h2>Session and Refresh</h2>                  
+                    <div class="description">
+                        <p>
+                            These endpoints handle the session and refresh lifecycle.
+                        </p>
+                        <p>The session endpoint is responsible for returning the user profile if the token is valid.</p>
+                        <p>The refresh endpoint issues a new token pair is issued and session cookies are set.</p>
+                    </div>
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+@router.get("/session", response_model=UserProfileSchema)
+async def get_session(token_data = Depends(validate_jwt)):
+    response = UserProfileSchema(
+        id=token_data["user_id"],
+        accepted_terms = token_data["accepted_terms"],
+        user_name=token_data["user_name"]
+    )
+    return response
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+@router.post("/refresh")
+async def refresh_jwt(request: Request, response: Response, refresh: Optional[RefreshTokenSchema], set_cookie : bool = Query(True)):
+    """
+        Takes the refresh token and issues a new token pair and sets the session cookie
+    """
+
+    # Fallback to cookie (browser clients)
+    if not refresh.token:
+        refresh_token = request.cookies.get("refresh_token")
+    else:
+        refresh_token = refresh.token
+    try:
+        jwt_token_pair = refresh_jwt_pair(refresh_token)
+
+    except RefreshTokenExpiredError as e:
+        print("Refresh token expired", e)
+        raise HTTPException(status_code=401, detail="Refresh token expired")
+
+    except InvalidRefreshTokenError as e:
+        print("Refresh token invalid", e)
+        raise HTTPException(status_code=401, detail="Refresh token invalid")
+
+    # Set new cookies
+    if set_cookie:
+        response.set_cookie(
+            key="access_token",
+            value=jwt_token_pair["access"],
+            httponly=True,
+            secure=True,
+            samesite="none",
+            max_age=ACCESS_TOKEN_LIFETIME
+        )
+
+        response.set_cookie(
+            key="refresh_token",
+            value=jwt_token_pair["refresh"],
+            httponly=True,
+            secure=True,
+            samesite="none",
+            max_age=REFRESH_TOKEN_LIFETIME
+        )
+
+        return {"status": "refreshed"}
+    
+    token_pair = TokenSchema(
+        access_token = jwt_token_pair['access'],
+        refresh_token = jwt_token_pair['refresh'], 
+    )
+
+    return token_pair
+                            </code>
+                        </pre>
+                    </div>
+            </div>       
+        </section>
+
+        <section id="device-redirect">
+            <div class="panel vert">
+                <h2>Device Redirect</h2>                  
+                    <div class="description">
+                        <p>
+                            This is a helper endpoint to redirect to the app using the deep link. The device calls this endpoint after scanning the 
+                            QR code from the camera. The device cannot open the deep link directly so this endpoint facilitates that.
+                        </p>
+                    </div>
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+@router.get("/deviceredirect")
+def test_mobile_redirect(redirect_url : str | None = Query(True) ):
+    """
+        Test redirection to the scheme
+    """
+    if redirect_url:
+        response_url = redirect_url
+    else:
+        response_url = "uk.chrisbriant.pairauth://pair?token=abc123"     
+    response = RedirectResponse(
+        url=response_url,
+        status_code=302
+    )
+    return response
+                            </code>
+                        </pre>
+                    </div>
+            </div>  
+        </section>
+
+        <section id="terms-and-conditions">
+            <div class="panel vert">
+                <h2>Accept Terms and Conditions</h2>                  
+                    <div class="description">
+                        <p>
+                            I have incorporated the acceptance of the terms and conditions into the authentication flow.
+                        </p>
+                        <p>The terms and conditions acceptance is held within the user profile. The session endpoint will return a cookie with this value 
+                            encoded. When the client reads the acceptance value it can redirect to a page within the application to enable the user to 
+                            accept the terms and conditions.
+                        </p>
+                        <p>The acceptterms endpoint below will update the database with the acceptance and set a new token pair with the updated user profile 
+                            encoded. The cookie needs to be set again and the data returned for the mobile client.</p>
+                    </div>
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+@router.post("/acceptterms", response_model=UserProfileSchema)
+async def accept_terms(response: Response, set_cookie : bool = Query(True), token_data = Depends(validate_jwt)):
+    """
+        Accepts the terms and conditions in the database and then updates the token
+    """
+    try:
+        await update_terms_accepted(token_data["user_id"])
+    except Exception as e:
+        raise HTTPException(status_code=400, detail="Unable to update the terms and conditions.")
+    
+    #Issue a new JWT with the updated accepted terms
+    jwt_token_pair = obtain_jwt_pair(token_data["user_id"], token_data["idp"], token_data["alias"], True)
+    
+    # Set new cookies
+    if set_cookie:
+        response.set_cookie(
+            key="access_token",
+            value=jwt_token_pair["access"],
+            httponly=True,
+            secure=True,
+            samesite="none",
+            max_age=ACCESS_TOKEN_LIFETIME
+        )
+
+        response.set_cookie(
+            key="refresh_token",
+            value=jwt_token_pair["refresh"],
+            httponly=True,
+            secure=True,
+            samesite="none",
+            max_age=REFRESH_TOKEN_LIFETIME
+        )
+
+    return UserProfileSchema(
+        id=token_data["user_id"],
+        idp= token_data["idp"],
+        accepted_terms = True,
+        alias=token_data["alias"]
+    )
+                            </code>
+                        </pre>
+                    </div>
+            </div>  
+        </section>
+
+        <section id="front-end">
+            <div class="panel panel-30-70">
+                <div class="left">
+                    <h2>Web Front End</h2>
+                    <div class="panel-image">
+                        <img src="./assets/aaim_signup.jpg" alt="Signup" />
+                    </div>
+                    <div class="panel-image">
+                        <img src="./assets/aaim_register.jpg" alt="Register" />
+                    </div>
+
+                </div>
+                <div class="right content">
+                    <p>The web-based front end has options for signing in and registering</p>
+                    <p>After sign-in / registration the user is presented with a QR code to scan with the mobile app.</p>
+                    <p>The home screen of the app will check the session and run the refresh cycle. If the user is not authenticated, it will redirect 
+                        to the signin / registration screen.
+                    </p>
+                    <a href="https://github.com/ChrisBriant/react_pairauth_frontend" target="_blank">View the code on GitHub</a>
+                    <div class="panel-image">
+                        <img src="./assets/pair_auth_qr.jpg" alt="Register" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section id="authenticator-app">
+            <div class="panel panel-30-70">
+                <div class="left">
+                    <h2>Authenticator App</h2>
+                    <div class="panel-image">
+                        <img src="./assets/pairauth_android_app.png" alt="Android app registration confirmation" />
+                    </div>
+
+                </div>
+                <div class="right content">
+                    <p>The authenticator app is built using the <strong>Flutter Framework</strong>.</p>
+                    <p>The app is designed to allow redirection via a deep link from the scanned QR code that receives a 
+                        challenge code. The challenge code can also be input manually.
+                    </p>
+                    <p>
+                        The challenge code is used for registration or sign-in. The home screen of the app processes the challenge code by 
+                        signing with a private key (generated if registering) and sends a payload to the backend which contains the signature and challenge code.
+                    </p>
+                    <p>The full code can be viewed on GitHub <a href="https://github.com/ChrisBriant/flutter_pairauth" target="_blank">here</a>.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="flutter-app-code">
+            <div class="panel vert">
+                <h2>Flutter App Code</h2>                  
+                    <div class="description">
+                        <p>
+                            This is the code for the home screen for the authenticator app. This is where it handles the processing 
+                            of the deep link or if not it will display the screen to allow manual entry.
+                        </p>
+                    </div>
+                    <div class="preformatted-text">
+                        <pre>
+                            <code>
+import 'package:flutter/material.dart';
+import 'package:app_links/app_links.dart';
+import 'package:loggy/loggy.dart';
+import '../services/auth.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+String baseUrl = "https://pairauth-api.chrisbriant.uk";
+
+enum AuthType { registration, signin }
+
+class HomeScreen extends StatefulWidget {
+  static const String routeName = '/homescreen';
+
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final AppLinks _appLinks = AppLinks();
+  String? tokenState;
+  late TextEditingController codeInput;
+  bool registered = false;
+  bool deviceAuthenticated = false;
+  bool registrationError = false;
+  bool processingChallenge = false;
+  AuthType authType = AuthType.registration;
+  String? deviceIdDisplay;
+  
+
+  void _handleDeepLink() async {
+
+    // If app opened from closed state
+    final uri = await _appLinks.getInitialLink();
+
+    if (uri != null) {
+      _processUri(uri);
+    }
+
+    // If app already running
+    _appLinks.uriLinkStream.listen((uri) {
+      _processUri(uri);
+    });
+  }
+
+  void _processUri(Uri uri) {
+
+    String? token = uri.queryParameters['token'];
+    String? type = uri.queryParameters['type'];
+
+    if (token != null && type != null) {
+      setState(() {
+        if(type == "register") {
+          authType = AuthType.registration; 
+        } else if(type == "signin") {
+          authType = AuthType.signin;
+        } else {
+          registrationError = true;
+        }
+      });
+      //Process the challenge code
+      _handleProcessChallengeCode(token);
+    }
+  }
+
+  Future<void> _handleProcessChallengeCode(String challengeCode) async {
+    //Disable the button if it is already processing
+    if(processingChallenge) return; 
+
+    //Set the state to processing to control disabling 
+    setState(() {
+      processingChallenge = true;
+    });
+    
+
+    if(authType == AuthType.registration) {
+      if(await _checkRegistered()) return; 
+
+      //Do the registration flow
+      final keyPair = await AppAuth.generateKeyPair();
+
+      //Store the private key
+      await AppAuth.storePrivateKey(keyPair);
+
+      final publicKeyBytes = await AppAuth.getPublicKey(keyPair);
+      final signature = await AppAuth.signChallenge(keyPair, challengeCode);
+
+      final publicKeyBase64 = base64Encode(publicKeyBytes);
+      final signatureBase64 = base64Encode(signature.bytes);
+      final deviceName =  await AppAuth.getDeviceName();
+
+      final url = Uri.parse('$baseUrl/auth/registerdevice'); 
+      final Map<String,dynamic> body = {
+          "challenge_code": challengeCode,
+          "public_key":publicKeyBase64,
+          "signature": signatureBase64,
+          "device_name": deviceName
+      };
+      http.post(url,headers: {
+        "Content-Type": "application/json"
+      },body: jsonEncode(body)).timeout(const Duration(seconds: 5)).then((res) async {
+        if (res.statusCode == 201) {
+          final int deviceId = jsonDecode(res.body);
+          await AppAuth.storeDeviceId(deviceId);
+          setState( () => registered= true);
+        } else {
+          logError('Request failed with status: ${res.statusCode}');
+          setState(() => registrationError = true);
+        }
+      }).catchError((err) {
+        logError("Timeout error $err");
+        setState(() => registrationError = true);
+      });
+    } else {
+      //Do the sign in flow
+      try {
+        final signature = await AppAuth.signChallengeWithStoredKey(challengeCode);
+
+        final signatureBase64 = base64Encode(signature.bytes);
+        final deviceId = await AppAuth.getDeviceId();
+
+        final Map<String,dynamic> body = {
+            "challenge_code": challengeCode,
+            "device_id":deviceId,
+            "signature": signatureBase64,
+        };
+
+        final url = Uri.parse('$baseUrl/auth/deviceauth'); 
+
+        http.post(url,headers: {
+          "Content-Type": "application/json"
+        },body: jsonEncode(body)).timeout(const Duration(seconds: 5)).then((res) async {
+          logInfo("RESPONSE ${res.statusCode}");
+          if (res.statusCode == 200) {
+            setState( () => deviceAuthenticated = true);
+          } else {
+            logError('Request failed with status: ${res.statusCode}');
+            setState(() => registrationError = true);
+          }
+        });
+      } catch(err) {
+        logError("Error signing in $err");
+        setState(() {
+          registrationError = true;
+        });
+      }
+      
+    }
+
+    setState(() {
+      processingChallenge = false;
+    });
+
+  }
+
+  //Checks the device is already registered and sets the device ID
+  Future<bool> _checkRegistered() async {
+
+    try{
+      deviceIdDisplay = (await AppAuth.getDeviceId()).toString();
+      return true;
+    } catch(err) {
+      deviceIdDisplay = null;
+      return false;
+    }
+  } 
+
+
+  @override
+  void initState() {
+    super.initState();
+
+    codeInput = TextEditingController();
+    _handleDeepLink();
+  }
+
+  @override
+  void dispose() {
+    codeInput.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text("Pair Auth - Authenticator"),
+          actions: [
+            IconButton(
+              onPressed: () => {
+                showDialog(
+                  context: context, 
+                  builder: (context) => AlertDialog(
+                    title: const Text("Info"),
+                    content: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Text(
+                          "This is a demo authenticator application used to demonstrate device verification.",
+                          style: TextStyle(fontSize: 15),
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          "Purpose",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        const Text(
+                          "It serves as a secure authentication method for both account registration and sign-in processes.",
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          "How to verify:",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 8),
+                        const Text("1. Scan the QR code shown on the web app after signing in or registering."),
+                        const Text("2. Or, enter the code manually using the 'Enter Code Manually' field."),
+                        const SizedBox(height: 16),
+                        const Text(
+                          "Demo Environment",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        const Text(
+                          "You can access the demo front-end application at:",
+                        ),
+                        const SizedBox(height: 4),
+                        const Text(
+                          "pairauth.chrisbriant.uk",
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontWeight: FontWeight.w500,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ],
+                    ),
+                    actionsAlignment: MainAxisAlignment.center,
+                    actions: [
+                      ElevatedButton(
+                        onPressed: () => Navigator.of(context).pop(), 
+                        child: const Text("Ok")
+                      )
+                    ],
+                  )
+                )
+              }, 
+              icon: Icon(Icons.info)
+            )
+          ],
+        ),
+        body: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 20,),
+                Image.asset(
+                  'assets/logo.png',
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * .3,
+                ),
+                FutureBuilder<bool>(
+                  future : _checkRegistered(),
+                  builder: (context, snapshot) => snapshot.connectionState == ConnectionState.waiting
+                    ? const Text("Loading...")
+                    : deviceIdDisplay != null ? Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Text(
+                        'Device Id : $deviceIdDisplay',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: const Color.fromARGB(255, 115, 160, 43),
+                        ),
+                        
+                      ),
+                    ) : const SizedBox(),
+                ),
+                Container(
+                  margin: EdgeInsets.all(20),
+                  child: registered || deviceAuthenticated
+                    ? registered
+                      ? Center(
+                      child: Column(
+                        children: [
+                          const Text(
+                            "You have successfully registered",
+                            style: TextStyle(
+                              fontSize: 20
+                            ),
+                          ),
+                          const Text(
+                            "Please press continue in the browser to sign in.",
+                            style: TextStyle(
+                              fontSize: 18
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () => setState(() {
+                              registered = false;
+                            }), 
+                            child: const Text("DONE")
+                          ),
+                        ]
+                      
+                      ),
+                    ) 
+                    : Center(
+                      child: Column(
+                        children: [
+                          const Text(
+                            "Device has successfully been verified.",
+                            style: TextStyle(
+                              fontSize: 20
+                            ),
+                          ),
+                          const Text(
+                            "Please press continue in the browser.",
+                            style: TextStyle(
+                              fontSize: 18
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () => setState(() {
+                              deviceAuthenticated = false;
+                            }), 
+                            child: const Text("DONE")
+                          ),
+                        ]
+                      
+                      ),
+                    ) 
+                    : Column(
+                    children: [
+                      tokenState != null 
+                      ? Text(tokenState!) 
+                      : Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(3),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                    color: const Color.fromARGB(255, 115, 160, 43),
+                                    width: 6.0,
+                              ),
+                              borderRadius: BorderRadius.circular(10)
+                            ),
+                            child: Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 115, 160, 43),
+                                borderRadius: BorderRadius.circular(10)
+                                
+                              ),
+                              child: Column(
+                                children: [
+                                  const Text(
+                                    "Enter Code Manually", 
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.white
+                                    ),
+                                  ),
+                                  TextField(
+                                    controller: codeInput,
+                                    style: TextStyle(
+                                      color: Colors.white
+                                    ),
+                                    decoration: InputDecoration(
+                                      enabledBorder: const UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.white, 
+                                          width: 3.0, // Makes the line thicker
+                                        ),
+                                      ),
+                                      focusedBorder: const UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.white, 
+                                          width: 3.0, // Makes the line thicker
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  RadioGroup(
+                                    onChanged: (AuthType? val) => {
+                                      setState(() {
+                                        authType = val!;
+                                      })
+                                    },
+                                    groupValue: authType,
+                                    child: Column(
+                                      children: [
+                                        RadioListTile<AuthType>(
+                                          fillColor: WidgetStateProperty.all(Colors.white),
+                                          title: Text("Register", style: TextStyle(color: Colors.white),),
+                                          value: AuthType.registration,
+                                        ),
+                                        RadioListTile<AuthType>(
+                                          fillColor: WidgetStateProperty.all(Colors.white),
+                                          title: Text("Sign In", style: TextStyle(color: Colors.white),),
+                                          value: AuthType.signin,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: processingChallenge ? null : () => _handleProcessChallengeCode(codeInput.text), 
+                                    child: const Text("Send")
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+          
+                          registrationError
+                          ? Container(
+                            margin: EdgeInsets.symmetric(vertical: 10),
+                            padding: EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              color: Colors.red.shade100
+                            ),
+                            child: const Text("Unable to authenticate the device. Please try again from the app.",
+                              style: TextStyle(
+                                color: Colors.red
+                              ),
+                            ),
+                          ) : const SizedBox()
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+  }
+}
+
+                            </code>
+                        </pre>
+                    </div>
+            </div>  
+        </section>
+
+    </main>
+    <footer>
+        <div class="row">
+            <div class="col col-3">
+                <h3>A-IAM</h3>
+                <p><strong>Contact</strong></p>
+                <a href="mailto:cbri4nt@gmail.com">E-mail</a>
+                <p><strong>Location</strong></p>
+                <p>Birmingham - UK</p>
+            </div>
+            <div class="col col-3">
+                <h3>Projects</h3>
+                <a href="./idbroker.html" class="">Identity Broker</a>
+                <a href="./ai-certification.html" class="">AI Certification</a>
+                <a href="./pairauth.html" class="">Pair Auth</a>
+            </div>
+            <div class="col col-3">
+                <h3>Social</h3>
+                <a href="https://github.com/ChrisBriant" target="_blank">
+                    <img src="./assets/github-mark.svg" alt="GitHub">
+                </a>
+                <a href="https://www.linkedin.com/in/chris-briant-79b7a1a/" target="_blank">
+                    <img src="./assets/linked_in.svg" alt="LinkedIn">
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-1 centered">
+                © <script>document.write(new Date().getFullYear())</script> Chris Briant. All rights reserved 
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
